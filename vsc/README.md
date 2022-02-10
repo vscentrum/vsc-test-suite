@@ -3,7 +3,7 @@
 ```
 module load ReFrame/3.9.1
 
-export RFM_CONFIG_FILE=$PWD/config_hydra.py
+export RFM_CONFIG_FILE=$PWD/config_vsc.py
 
 reframe --verbose --run \
     --checkpath vsc.py \

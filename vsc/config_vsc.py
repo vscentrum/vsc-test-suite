@@ -49,7 +49,35 @@ site_configuration = {
                     'launcher': 'local',
                 },
             ]
-        }
+        },
+        {
+            'name': 'hortense',
+            'descr': 'VSC Tier-1 Hortense',
+            'hostnames': ['login.*.dodrio.os'],
+            'modules_system': 'lmod',
+            'partitions': [
+                {
+                    'name': 'local',
+                    'scheduler': 'local',
+                    'modules': [],
+                    'access': [],
+                    'environs': ['builtin'],
+                    'descr': 'tests in the local node (no job)',
+                    'max_jobs': 1,
+                    'launcher': 'local',
+                },
+                {
+                    'name': 'single-node',
+                    'scheduler': 'slurm',
+                    'modules': [],
+                    'access': [],
+                    'environs': ['builtin'],
+                    'descr': 'single-node jobs',
+                    'max_jobs': 1,
+                    'launcher': 'local',
+                },
+            ]
+        },
     ],
     'environments': [
         {'name': 'builtin', 'cc': 'gcc', 'cxx': 'g++', 'ftn': 'gfortran',},
