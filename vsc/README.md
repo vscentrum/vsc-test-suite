@@ -30,3 +30,17 @@ reframe --verbose --run \
     --setvar VSCJobTest.valid_systems='hortense:single-node' \
     --setvar valid_prog_environs='builtin'
 ```
+
+## VSC Tier-2 Genius (@ KUL)
+
+```shell
+module load ReFrame/3.10.1
+cd vsc-test-suite/vsc
+
+export RFM_CONFIG_FILE=$PWD/config_vsc.py
+reframe --verbose --run \
+    --checkpath vsc.py \
+    --setvar VSCEnvTest.valid_systems='genius:local' \
+    --setvar VSCJobTest.valid_systems='genius:single-node' \
+    --setvar valid_prog_environs='builtin'
+```

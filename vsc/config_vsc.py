@@ -20,6 +20,10 @@ perf_logging_format = 'reframe: ' + '|'.join(
     ]
 )
 
+# To run jobs on the kul cluster, you need to have access to following credit
+# account (currently only the case for kul admins)
+kul_account_string_tier2 = '-A lpt2_sysadmin'
+
 site_configuration = {
     'systems': [
         {
@@ -71,6 +75,34 @@ site_configuration = {
                     'scheduler': 'slurm',
                     'modules': [],
                     'access': [],
+                    'environs': ['builtin'],
+                    'descr': 'single-node jobs',
+                    'max_jobs': 1,
+                    'launcher': 'local',
+                },
+            ]
+        },
+        {
+            'name': 'genius',
+            'descr': 'VSC Tier-2 Genius',
+            'hostnames': ['tier2-p-login-[1-4].genius.hpc.kuleuven.be'],
+            'modules_system': 'lmod',
+            'partitions': [
+                {
+                    'name': 'local',
+                    'scheduler': 'local',
+                    'modules': [],
+                    'access': [],
+                    'environs': ['builtin'],
+                    'descr': 'tests in the local node (no job)',
+                    'max_jobs': 1,
+                    'launcher': 'local',
+                },
+                {
+                    'name': 'single-node',
+                    'scheduler': 'torque',
+                    'modules': [],
+                    'access': [kul_account_string_tier2],
                     'environs': ['builtin'],
                     'descr': 'single-node jobs',
                     'max_jobs': 1,
