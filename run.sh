@@ -5,9 +5,9 @@ if [[ "$1" == "antwerp" ]]; then
     module load ReFrame/3.9.1
 
     export RFM_CONFIG_FILE=$PWD/config_vsc.py
-    reframe --verbose --checkpath $PWD/tests --recursive --run
+    reframe --verbose --checkpath $PWD/tests --prefix $HOME --recursive --run
 
-        
+
 elif [[ "$1" == "ghent" ]]; then
 
     # specify Slurm account to use (credits)
@@ -17,8 +17,7 @@ elif [[ "$1" == "ghent" ]]; then
     cd vsc-test-suite/vsc
 
     export RFM_CONFIG_FILE=$PWD/config_vsc.py
-    reframe --verbose --checkpath $PWD/tests --recursive --run
-
+    reframe --verbose --checkpath $PWD/tests --prefix $HOME --recursive --run
 
 
 elif [[ "$1" == "brussel" ]]; then
@@ -27,7 +26,8 @@ elif [[ "$1" == "brussel" ]]; then
 
     export RFM_CONFIG_FILE=$PWD/config_vsc.py
 
-    reframe --verbose --checkpath $PWD/tests --recursive --run
+    reframe --verbose --checkpath $PWD/tests --prefix $HOME --recursive --run
+
 
 else 
     echo "This never happens, add error or help message"
