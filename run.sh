@@ -17,11 +17,9 @@ elif [[ "$1" == "ghent" ]]; then
     cd vsc-test-suite/vsc
 
     export RFM_CONFIG_FILE=$PWD/config_vsc.py
-    reframe --verbose --run \
-        --checkpath vsc.py \
-        --setvar VSCEnvTest.valid_systems='hortense:local' \
-        --setvar VSCJobTest.valid_systems='hortense:single-node' \
-        --setvar valid_prog_environs='builtin'
+    reframe --verbose --checkpath $PWD/tests --recursive --run
+
+
 
 elif [[ "$1" == "brussel" ]]; then
 
@@ -29,11 +27,7 @@ elif [[ "$1" == "brussel" ]]; then
 
     export RFM_CONFIG_FILE=$PWD/config_vsc.py
 
-    reframe --verbose --run \
-        --checkpath vsc.py \
-        --setvar VSCEnvTest.valid_systems='hydra:local' \
-        --setvar VSCJobTest.valid_systems='hydra:single-node' \
-        --setvar valid_prog_environs='builtin'
+    reframe --verbose --checkpath $PWD/tests --recursive --run
 
 else 
     echo "This never happens, add error or help message"

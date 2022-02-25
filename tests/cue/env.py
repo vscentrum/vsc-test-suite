@@ -7,7 +7,7 @@ class VSCEnvTest(rfm.RunOnlyRegressionTest):
     descr = "test environment variable "
     envar = parameter(['VSC_HOME', 'VSC_DATA', 'VSC_SCRATCH'])
     valid_systems = ["*"]
-    valid_prog_environs = ["*"]
+    valid_prog_environs = [":local"]
     time_limit = '10m'
     num_tasks = 1
     num_tasks_per_node = 1
