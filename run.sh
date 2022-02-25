@@ -14,7 +14,6 @@ elif [[ "$1" == "ghent" ]]; then
     export SBATCH_ACCOUNT='gadminforever'
 
     module load ReFrame/3.9.1
-    cd vsc-test-suite/vsc
 
     export RFM_CONFIG_FILE=$(dirname $0)/config_vsc.py
     reframe --verbose --checkpath $(dirname $0)/tests --prefix $HOME --output $HOME --recursive --run
@@ -27,7 +26,13 @@ elif [[ "$1" == "brussel" ]]; then
     export RFM_CONFIG_FILE=$(dirname $0)/config_vsc.py
     reframe --verbose --checkpath $(dirname $0)/tests --prefix $HOME --output $HOME --recursive --run
 
+elif [[ "$1" == "leuven" ]]; then
 
+    module load ReFrame/3.10.1
+
+    export RFM_CONFIG_FILE=$(dirname $0)/config_vsc.py
+    reframe --verbose --checkpath $(dirname $0)/tests --prefix $HOME --output $HOME --recursive --run
+    
 else 
     echo "This never happens, add error or help message"
 fi
