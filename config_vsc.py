@@ -89,6 +89,19 @@ site_configuration = {
                     'max_jobs': 1,
                     'launcher': 'local',
                 },
+                                {
+                    'name': 'mpi-job',
+                    'scheduler': 'slurm',
+                    'access': [],
+                    'environs': ['intel-mpi'],
+                    'descr': 'MPI jobs',
+                    'max_jobs': 1,
+                    # TODO Here we actually want to set vsc-mympirun, but since
+                    # this is a custom launcher not shipped with ReFrame, we
+                    # can only do this in the test itself after registering the
+                    # vsc-mympirun launcher
+                    'launcher': 'srun',
+                },
             ]
         },
         {
@@ -172,9 +185,19 @@ site_configuration = {
         },
     ],
     'environments': [
-        {'name': 'builtin', 'cc': 'gcc', 'cxx': 'g++', 'ftn': 'gfortran',},
-        {'name': 'foss-2021a', 'cc': 'mpicc', 'cxx': 'mpicxx',
-         'ftn': 'mpif90', 'modules': ['foss/2021a'],},
+        {
+            'name': 'builtin', 'cc': 'gcc', 'cxx': 'g++', 'ftn': 'gfortran',},
+        {
+            'name': 'foss-2021a', 'cc': 'mpicc', 'cxx': 'mpicxx',
+            'ftn': 'mpif90', 'modules': ['foss/2021a'],},
+        {   
+            'name': 'intel-mpi',
+            'modules': ['intel'],
+            'cc': 'mpiicc',
+            'cxx': 'mpiicpc',
+            'ftn': 'mpiifort',
+            'target_systems': ['vaughan']
+        },
     ],
     'general': [
         {

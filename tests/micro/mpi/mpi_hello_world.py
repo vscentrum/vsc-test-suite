@@ -24,7 +24,7 @@ class MPIHelloWorldTest(rfm.RegressionTest):
     launched on 2 nodes with 3 MPI processes per node. It is checked that each
     process prints a Hello World line and that indeed two nodes were used.'''
     valid_systems = ['*:mpi-job']
-    valid_prog_environs = ['foss-2021a']
+    valid_prog_environs = ['foss-2021a', 'intel-mpi']
     maintainers = ['stevenvdb']
     time_limit = '10m'
     num_tasks = 6
