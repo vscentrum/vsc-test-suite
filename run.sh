@@ -4,8 +4,8 @@ if [[ "$1" == "antwerp" ]]; then
     module use /apps/antwerpen/modules/centos8/software-admin-x86_64
     module load ReFrame/3.9.1
 
-    export RFM_CONFIG_FILE=$PWD/config_vsc.py
-    reframe --verbose --checkpath $PWD/tests --prefix $HOME --recursive --run
+    export RFM_CONFIG_FILE=$(dirname $0)/config_vsc.py
+    reframe --verbose --checkpath $(dirname $0)/tests --prefix $HOME --output $HOME --recursive --run
 
 
 elif [[ "$1" == "ghent" ]]; then
@@ -16,17 +16,16 @@ elif [[ "$1" == "ghent" ]]; then
     module load ReFrame/3.9.1
     cd vsc-test-suite/vsc
 
-    export RFM_CONFIG_FILE=$PWD/config_vsc.py
-    reframe --verbose --checkpath $PWD/tests --prefix $HOME --recursive --run
+    export RFM_CONFIG_FILE=$(dirname $0)/config_vsc.py
+    reframe --verbose --checkpath $(dirname $0)/tests --prefix $HOME --output $HOME --recursive --run
 
 
 elif [[ "$1" == "brussel" ]]; then
 
     module load ReFrame/3.9.1
 
-    export RFM_CONFIG_FILE=$PWD/config_vsc.py
-
-    reframe --verbose --checkpath $PWD/tests --prefix $HOME --recursive --run
+    export RFM_CONFIG_FILE=$(dirname $0)/config_vsc.py
+    reframe --verbose --checkpath $(dirname $0)/tests --prefix $HOME --output $HOME --recursive --run
 
 
 else 
