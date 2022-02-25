@@ -52,6 +52,15 @@ site_configuration = {
                     'max_jobs': 1,
                     'launcher': 'local',
                 },
+                {
+                    'name': 'mpi-job',
+                    'scheduler': 'slurm',
+                    'access': [],
+                    'environs': ['foss-2021a'],
+                    'descr': 'MPI jobs',
+                    'max_jobs': 1,
+                    'launcher': 'srun',
+                },
             ]
         },
         {
@@ -108,6 +117,19 @@ site_configuration = {
                     'max_jobs': 1,
                     'launcher': 'local',
                 },
+                {
+                    'name': 'mpi-job',
+                    'scheduler': 'slurm',
+                    'access': [],
+                    'environs': ['foss-2021a'],
+                    'descr': 'MPI jobs',
+                    'max_jobs': 1,
+                    # TODO Here we actually want to set vsc-mympirun, but since
+                    # this is a custom launcher not shipped with ReFrame, we
+                    # can only do this in the test itself after registering the
+                    # vsc-mympirun launcher
+                    'launcher': 'srun',
+                },
             ]
         },
         {
@@ -136,11 +158,23 @@ site_configuration = {
                     'max_jobs': 1,
                     'launcher': 'local',
                 },
+                {
+                    'name': 'mpi-job',
+                    'scheduler': 'torque',
+                    'access': [kul_account_string_tier2],
+                    'environs': ['foss-2021a'],
+                    'descr': 'MPI jobs',
+                    'max_jobs': 1,
+                    'launcher': 'mpirun',
+                    'variables': [['MODULEPATH', '/apps/leuven/skylake/2021a/modules/all']],
+                },
             ]
         },
     ],
     'environments': [
         {'name': 'builtin', 'cc': 'gcc', 'cxx': 'g++', 'ftn': 'gfortran',},
+        {'name': 'foss-2021a', 'cc': 'mpicc', 'cxx': 'mpicxx',
+         'ftn': 'mpif90', 'modules': ['foss/2021a'],},
     ],
     'general': [
         {
