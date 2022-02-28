@@ -93,7 +93,7 @@ site_configuration = {
                     'name': 'mpi-job',
                     'scheduler': 'slurm',
                     'access': [],
-                    'environs': ['intel-mpi'],
+                    'environs': ['intel-2021a'],
                     'descr': 'MPI jobs',
                     'max_jobs': 1,
                     # TODO Here we actually want to set vsc-mympirun, but since
@@ -191,7 +191,7 @@ site_configuration = {
             'name': 'foss-2021a', 'cc': 'mpicc', 'cxx': 'mpicxx',
             'ftn': 'mpif90', 'modules': ['foss/2021a'],},
         {   
-            'name': 'intel-mpi',
+            'name': 'intel-2021a',
             'modules': ['intel'],
             'cc': 'mpiicc',
             'cxx': 'mpiicpc',
