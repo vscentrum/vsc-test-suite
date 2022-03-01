@@ -142,11 +142,62 @@ site_configuration = {
                 },
             ]
         },
+        {
+            'name': 'vaughan',
+            'descr': 'VSC Tier-2 Vaughan',
+            'hostnames': ['login', 'vaughan'],
+            'modules_system': 'lmod',
+            'partitions': [
+                {
+                    'name': 'local',
+                    'scheduler': 'local',
+                    'modules': [],
+                    'access': [],
+                    'environs': ['builtin'],
+                    'descr': 'tests in the local node (no job)',
+                    'max_jobs': 1,
+                    'launcher': 'local',
+                },
+                {
+                    'name': 'single-node',
+                    'scheduler': 'slurm',
+                    'modules': [],
+                    'access': [],
+                    'environs': ['builtin'],
+                    'descr': 'single-node jobs',
+                    'max_jobs': 1,
+                    'launcher': 'local',
+                },
+                                {
+                    'name': 'mpi-job',
+                    'scheduler': 'slurm',
+                    'access': [],
+                    'environs': ['intel-2021a'],
+                    'descr': 'MPI jobs',
+                    'max_jobs': 1,
+                    # TODO Here we actually want to set vsc-mympirun, but since
+                    # this is a custom launcher not shipped with ReFrame, we
+                    # can only do this in the test itself after registering the
+                    # vsc-mympirun launcher
+                    'launcher': 'srun',
+                },
+            ]
+        },
     ],
     'environments': [
-        {'name': 'builtin', 'cc': 'gcc', 'cxx': 'g++', 'ftn': 'gfortran',},
-        {'name': 'foss-2021a', 'cc': 'mpicc', 'cxx': 'mpicxx',
-         'ftn': 'mpif90', 'modules': ['foss/2021a'],},
+        {
+            'name': 'builtin', 'cc': 'gcc', 'cxx': 'g++', 'ftn': 'gfortran',},
+        {
+            'name': 'foss-2021a', 'cc': 'mpicc', 'cxx': 'mpicxx',
+            'ftn': 'mpif90', 'modules': ['foss/2021a'],},
+        {   
+            'name': 'intel-2021a',
+            'modules': ['intel'],
+            'cc': 'mpiicc',
+            'cxx': 'mpiicpc',
+            'ftn': 'mpiifort',
+            'target_systems': ['vaughan']
+        },
     ],
     'general': [
         {
