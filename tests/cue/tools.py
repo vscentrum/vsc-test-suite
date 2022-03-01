@@ -42,5 +42,5 @@ class VSCToolAvailabilityTest(rfm.RunOnlyRegressionTest):
         self.executable = f"""{self.envar} --version"""
 
     @sanity_function
-    def assert_env(self):
+    def assert_availability(self):
         return sn.assert_not_found(r'command not found', self.stderr)
