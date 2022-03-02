@@ -1,6 +1,7 @@
 import os
 import reframe as rfm
 import reframe.utility.sanity as sn
+from pkg_resources import parse_version as version
 
 tools = {
     'bash': '4.2',
@@ -39,8 +40,29 @@ class VSCToolAvailabilityTest(rfm.RunOnlyRegressionTest):
     @run_after('init')
     def set_param(self):
         self.descr += self.envar
-        self.executable = f"""{self.envar} --version"""
+        self.executable = f"""command -v {self.envar}"""
 
     @sanity_function
     def assert_availability(self):
-        return sn.assert_not_found(r'command not found', self.stderr)
+        return sn.assert_found(r'^[a-zA-Z/]', self.stdout)
+
+@rfm.simple_test
+class VSCToolVersionTest(rfm.RunOnlyRegressionTest):
+    descr = "test version"
+    envar = parameter(list(tools.keys()))
+    valid_systems = ["*:local"]
+    valid_prog_environs = ["builtin"]
+    time_limit = '10m'
+    num_tasks = 1
+    num_tasks_per_node = 1
+    num_cpus_per_task = 1
+    tags = {"antwerp"}
+
+    @run_after('init')
+    def set_param(self):
+        self.descr += self.envar
+        self.executable = f"""python3 version_check.py {self.envar} {tools[self.envar]}"""
+    @sanity_function
+    def assert_availability(self):
+        return sn.assert_found(r'^True$', self.stdout)
+
