@@ -21,7 +21,7 @@ elif [[ "$1" == "ghent" ]]; then
 
 elif [[ "$1" == "brussel" ]]; then
 
-    module load ReFrame/3.9.1
+    module load ReFrame/3.10.1
 
     reframe --verbose --checkpath $(dirname $0)/tests --prefix $HOME --output $HOME --recursive --run
 

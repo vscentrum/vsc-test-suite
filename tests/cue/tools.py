@@ -1,34 +1,16 @@
 import os
+from pkg_resources import parse_version as version
 import reframe as rfm
 import reframe.utility.sanity as sn
-from pkg_resources import parse_version as version
+import sys
 
-tools = {
-    'bash': '4.2',
-    'ksh': '93',
-    'tcsh': '6.18',
-    'zsh': '5.0.2',
-    'screen': '4.01',
-    'tmux': '1.8',
-    'nano': '2.2.6',
-    'vim': '7.4',
-    'emacs': '24',
-    'mc': '4.8.7',
-    'svn': '1.7.14',
-    'git': '1.8.3',
-    'python3': '3.6.8',
-    'perl': '5.16.3',
-    'rsync': '3.1.2',
-    'wget': '1.14',
-    'curl': '7.29',
-    'singularity': '3.7.1',
-    'module': '8.2.7',
-}
+sys.path.append(os.path.dirname(__file__))
+from tools_list import tools
 
 @rfm.simple_test
 class VSCToolAvailabilityTest(rfm.RunOnlyRegressionTest):
     descr = "test availability"
-    envar = parameter(list(tools.keys()))
+    tool = parameter(tools)
     valid_systems = ["*:local"]
     valid_prog_environs = ["builtin"]
     time_limit = '10m'
@@ -39,8 +21,10 @@ class VSCToolAvailabilityTest(rfm.RunOnlyRegressionTest):
 
     @run_after('init')
     def set_param(self):
-        self.descr += self.envar
-        self.executable = f"""command -v {self.envar}"""
+        self.descr += self.tool['exe']
+        self.executable = f"""command -v {self.tool['exe']}"""
+        if self.tool.get('modname'):
+            self.executable = f"module load {self.tool['modname']} && " + self.executable
 
     @sanity_function
     def assert_availability(self):
@@ -49,7 +33,7 @@ class VSCToolAvailabilityTest(rfm.RunOnlyRegressionTest):
 @rfm.simple_test
 class VSCToolVersionTest(rfm.RunOnlyRegressionTest):
     descr = "test version"
-    envar = parameter(list(tools.keys()))
+    tool = parameter(tools)
     valid_systems = ["*:local"]
     valid_prog_environs = ["builtin"]
     time_limit = '10m'
@@ -60,8 +44,8 @@ class VSCToolVersionTest(rfm.RunOnlyRegressionTest):
 
     @run_after('init')
     def set_param(self):
-        self.descr += self.envar
-        self.executable = f"""python3 version_check.py {self.envar} {tools[self.envar]}"""
+        self.descr += self.tool['exe']
+        self.executable = f"""python3 version_check.py {self.tool['exe']} {self.tool['minver']}"""
     @sanity_function
     def assert_availability(self):
         return sn.assert_found(r'^True$', self.stdout)
