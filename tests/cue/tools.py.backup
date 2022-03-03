@@ -25,12 +25,12 @@ class VSCToolAvailabilityTest(rfm.RunOnlyRegressionTest):
         self.executable = f"""command -v {self.tool['exe']}"""
         modname = self.tool.get('modname')
         if modname:
+            # self.executable = f"module load {self.tool['modname']} && " + self.executable
             self.modules = [modname]
 
     @sanity_function
     def assert_availability(self):
         return sn.assert_found(r'^[a-zA-Z/]', self.stdout)
-
 
 @rfm.simple_test
 class VSCToolVersionTest(rfm.RunOnlyRegressionTest):
@@ -48,10 +48,6 @@ class VSCToolVersionTest(rfm.RunOnlyRegressionTest):
     def set_param(self):
         self.descr += self.tool['exe']
         self.executable = f"""python3 version_check.py {self.tool['exe']} {self.tool['minver']}"""
-        modname = self.tool.get('modname')
-        if modname:
-            self.modules = [modname]
-
     @sanity_function
     def assert_availability(self):
         return sn.assert_found(r'^True$', self.stdout)
