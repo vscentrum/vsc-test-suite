@@ -4,7 +4,7 @@ export RFM_CONFIG_FILE=$(dirname $0)/config_vsc.py
 if [[ "$1" == "antwerp" ]]; then
 
     module use /apps/antwerpen/modules/centos8/software-admin-x86_64
-    module load ReFrame/3.9.1
+    module load ReFrame/3.10.1
 
     reframe --verbose --checkpath $(dirname $0)/tests --prefix $HOME --output $HOME --recursive --run
 

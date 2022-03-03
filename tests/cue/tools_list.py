@@ -75,29 +75,29 @@ tools = [
         'exe': 'module',
         'minver': '8.2.7',
     },
-    {
-        'exe': 'bzr',
-        'minver': '2.5.1',
-        'modname': 'Bazaar',
-    },
-    {
-        'exe': 'hg',
-        'minver': '5.8',
-        'modname': 'Mercurial',
-    },
-    {
-        'exe': 'python2',
-        'minver': '2.7.18',
-        'modname': 'Python/2.7.18-GCCcore-10.2.0',
-    },
-    {
-        'exe': 'smbclient',
-        'minver': '4.10.16',
-        'modname': 'Samba',
-    },
-    {
-        'exe': 'eb',
-        'minver': '4.4.0',
-        'modname': 'EasyBuild',
-    },
+    # {
+    #     'exe': 'bzr',
+    #     'minver': '2.5.1',
+    #     'modname': 'Bazaar',
+    # },
+    # {
+    #     'exe': 'hg',
+    #     'minver': '5.8',
+    #     'modname': 'Mercurial',
+    # },
+    # {
+    #     'exe': 'python2',
+    #     'minver': '2.7.18',
+    #     'modname': 'Python/2.7.18-GCCcore-10.2.0',
+    # },
+    # {
+    #     'exe': 'smbclient',
+    #     'minver': '4.10.16',
+    #     'modname': 'Samba',
+    # },
+    # {
+    #     'exe': 'eb',
+    #     'minver': '4.4.0',
+    #     'modname': 'EasyBuild',
+    # },
 ]
