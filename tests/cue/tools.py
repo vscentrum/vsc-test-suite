@@ -47,6 +47,9 @@ class VSCToolVersionTest(rfm.RunOnlyRegressionTest):
     def set_param(self):
         self.descr += self.tool['exe']
         self.executable = f"""python3 version_check.py {self.tool['exe']} {self.tool['minver']}"""
+        if self.tool.get('modname'):
+            self.executable = f"module load {self.tool['modname']} && " + self.executable
+
     @sanity_function
     def assert_availability(self):
         return sn.assert_found(r'^True$', self.stdout)

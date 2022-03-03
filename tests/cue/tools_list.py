@@ -3,10 +3,10 @@ tools = [
         'exe': 'bash',
         'minver': '4.2',
     },
-    {
-        'exe': 'ksh',
-        'minver': '93',
-    },
+    # {
+    #     'exe': 'ksh',
+    #     'minver': '93',
+    # },
     {
         'exe': 'tcsh',
         'minver': '6.18',
@@ -71,10 +71,10 @@ tools = [
         'exe': 'singularity',
         'minver': '3.7.1',
     },
-    {
-        'exe': 'module',
-        'minver': '8.2.7',
-    },
+    # {
+    #     'exe': 'module',
+    #     'minver': '8.2.7',
+    # },
     # {
     #     'exe': 'bzr',
     #     'minver': '2.5.1',

@@ -11,14 +11,12 @@ out = subprocess.run([cmd],shell=True, stdout=subprocess.PIPE)
 out = out.stdout.decode('utf-8')
 
 if re.search(r'not installed', out):
-    cmd = f"{args[1]} --version | sed '/^$/d' | sed 1q"
+    cmd = f"{args[1]} --version"
     out = subprocess.run([cmd],shell=True, stdout=subprocess.PIPE)
     out = out.stdout.decode('utf-8')
 
-with open('data', 'w') as file:
-    file.write(out)
+out = [line for line in out.split('\n') if line.strip() != '']
+out = out[0]
+match = re.findall(r'(?:(\d+\.(?:\d+\.)*\d+))', out)
 
-out = subprocess.run(['sed', r's/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/', 'data'], stdout=subprocess.PIPE)
-out = out.stdout.decode('utf-8')
-print(version(args[2]) <= version(out))  # True
-
+print(version(args[2]) <= version(match[0]))  # True
