@@ -7,7 +7,7 @@ import re
 import json
 
 
-tool=json.loads(sys.argv[1])
+tool = json.loads(sys.argv[1])
 
 cmd = f"rpm -q {tool['exe']}"
 out = subprocess.run([cmd],shell=True, stdout=subprocess.PIPE)

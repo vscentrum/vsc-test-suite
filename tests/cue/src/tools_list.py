@@ -26,6 +26,7 @@ tools = [
     {
         'exe': 'zsh',
         'options': '--version',
+        'modname': 'zsh',
         'minver': '5.0.2',
     },
     {
@@ -103,26 +104,34 @@ tools = [
         'options': '--version 2>&1',
         'minver': '8.2.7', 
     },
-    # {
-    #     'exe': 'bzr',
-    #     'minver': '2.5.1',
-    #     'modname': 'Bazaar',
-    # },
-    # {
-    #     'exe': 'hg',
-    #     'minver': '5.8',
-    #     'modname': 'Mercurial',
-    # },
-    # {
-    #     'exe': 'python2',
-    #     'minver': '2.7.18',
-    #     'modname': 'Python/2.7.18-GCCcore-10.2.0',
-    # },
-    # {
-    #     'exe': 'smbclient',
-    #     'minver': '4.10.16',
-    #     'modname': 'Samba',
-    # },
+    {
+        'exe': 'bzr',
+        'options': '--version',
+        'minver': '2.5.1',
+        'modname': 'Bazaar',
+        'skiprpm': True,
+    },
+    {
+        'exe': 'hg',
+        'options': '--version',
+        'minver': '5.8',
+        'modname': 'Mercurial',
+        'skiprpm': True,
+    },
+    {
+        'exe': 'python2',
+        'options': '--version 2>&1',
+        'minver': '2.7.18',
+        'modname': 'Python/2.7.18-GCCcore-10.2.0',
+        'skiprpm': True,
+    },
+    {
+        'exe': 'smbclient',
+        'options': '--version',
+        'minver': '4.10.16',
+        'modname': 'Samba',
+        'skiprpm': True,
+    },
     {
         'exe': 'eb',
         'options': '--version',
