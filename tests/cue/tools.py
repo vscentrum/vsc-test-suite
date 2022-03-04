@@ -3,8 +3,9 @@ from pkg_resources import parse_version as version
 import reframe as rfm
 import reframe.utility.sanity as sn
 import sys
+import json
 
-sys.path.append(os.path.dirname(__file__))
+sys.path.append(os.path.dirname(__file__)+'/src')
 from tools_list import tools
 
 @rfm.simple_test
@@ -47,7 +48,7 @@ class VSCToolVersionTest(rfm.RunOnlyRegressionTest):
     @run_after('init')
     def set_param(self):
         self.descr += self.tool['exe']
-        self.executable = f"""python3 version_check.py {self.tool['exe']} {self.tool['minver']}"""
+        self.executable = f"""python3 version_check.py '{json.dumps(self.tool)}' """
         modname = self.tool.get('modname')
         if modname:
             self.modules = [modname]
