@@ -9,19 +9,19 @@ import json
 
 tool = json.loads(sys.argv[1])
 
-cmd = f"rpm -q {tool['exe']}"
-out = subprocess.run([cmd],shell=True, stdout=subprocess.PIPE)
-out = out.stdout.decode('utf-8')
+try:
+    ver_opt = tool['version_opt']
+except:
+    ver_opt = '--version'
 
 try:
-    flag = tool['skiprpm']
+    options = tool['options']
 except:
-    flag = False
+    options = ""
 
-if re.search(r'not installed', out) or flag:
-    cmd = f"{tool['exe']} {tool['options']}"
-    out = subprocess.run([cmd],shell=True, stdout=subprocess.PIPE)
-    out = out.stdout.decode('utf-8')
+cmd = f"{tool['exe']} {ver_opt} {options}"
+out = subprocess.run([cmd],shell=True, stdout=subprocess.PIPE)
+out = out.stdout.decode('utf-8')
 
 out = [line for line in out.split('\n') if line.strip() != '']
 out = out[0]
