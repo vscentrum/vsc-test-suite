@@ -3,7 +3,7 @@ import reframe as rfm
 import reframe.utility.sanity as sn
 import sys
 
-sys.path.append(os.path.dirname(__file__))
+sys.path.append(os.path.dirname(__file__)+'/src')
 from envars_list import envars
 
 @rfm.simple_test
