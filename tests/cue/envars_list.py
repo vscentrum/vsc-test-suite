@@ -35,7 +35,7 @@ envars = [
     },
     {
         'name': 'VSC_OS_LOCAL',
-        'exe': py_start  + """print(os.environ["{}"] in ["CO7", "RHEL8"])'""",
+        'exe': py_start  + """print(os.environ["{}"] in ["CO7", "RHEL8", "centos8", "centos7"])'""",
     },
     {
         'name': 'VSC_SCRATCH_NODE',
