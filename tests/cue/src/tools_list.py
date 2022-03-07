@@ -1,7 +1,7 @@
 tools = [
     # {
     # 'exe': 'command'                  # mandatory:    the command itself
-    # 'version_opt': '-V'               # optional:     default = '--version'
+    # 'veropt': '-V'               # optional:     default = '--version'
     # 'options': '--option -a 2>&1',    # optional:     desired options as postfix 
     # 'minver': '93',                   # mandatory:    minimum version accepted 
     # 're': r'(?<=\) )\d+',             # optional:     custom regex for the command output if needed
@@ -32,7 +32,7 @@ tools = [
     },
     {
         'exe': 'tmux',
-        'version_opt': '-V',
+        'veropt': '-V',
         'minver': '1.8',
     },
     {

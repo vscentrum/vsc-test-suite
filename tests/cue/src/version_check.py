@@ -10,7 +10,7 @@ import json
 tool = json.loads(sys.argv[1])
 
 try:
-    ver_opt = tool['version_opt']
+    ver_opt = tool['veropt']
 except:
     ver_opt = '--version'
 

@@ -10,7 +10,7 @@ Each entry of the document is structured as follows:
     * `exe`: the actual command undergoing testing
     * `minver`: the minimum accepted version of the specified command
 * optional entries
-    * `version_opt`: the version flag attached to the command, the default is `--version`
+    * `veropt`: the version flag attached to the command, the default is `--version`
     * `options`: extra options postfixed to command and version flag
     * `re`: custom regular expression to extract the version number from the command output, default is `r'(?:(\d+\.(?:\d+\.)*\d+))'`
     * `modname`: load the specified module before executing the test. Packages requiring a module load in certain sites and are installed at system level in others can be handled by greedly adding the required module in this field. 
