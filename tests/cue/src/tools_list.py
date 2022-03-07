@@ -1,7 +1,7 @@
 tools = [
     # {
     # 'exe': 'command'                  # mandatory:    the command itself
-    # 'veropt': '-V'               # optional:     default = '--version'
+    # 'veropt': '-V'                    # optional:     default = '--version'
     # 'options': '--option -a 2>&1',    # optional:     desired options as postfix 
     # 'minver': '93',                   # mandatory:    minimum version accepted 
     # 're': r'(?<=\) )\d+',             # optional:     custom regex for the command output if needed
@@ -84,7 +84,7 @@ tools = [
         'minver': '3.7.1',
     },
     {
-        'exe': 'module',
+        'exe': 'ml',
         'options': '2>&1',
         'minver': '8.2.7', 
     },
