@@ -30,7 +30,8 @@ elif [[ "$1" == "leuven" ]]; then
     module load ReFrame/3.10.1
 
     reframe --verbose --checkpath $(dirname $0)/tests --prefix $HOME --output $HOME --recursive --run
-    
-else 
-    echo "This never happens, add error or help message"
+
+else
+    echo "USAGE: ./run.sh <institute>"
+    echo "institute: antwerp/brussel/gent/leuven"
 fi
