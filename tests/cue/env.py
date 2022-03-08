@@ -1,11 +1,15 @@
 import os
 import reframe as rfm
 import reframe.utility.sanity as sn
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
+from envars_list import envars
 
 @rfm.simple_test
 class VSCEnvTest(rfm.RunOnlyRegressionTest):
     descr = "test environment variable "
-    envar = parameter(['VSC_HOME', 'VSC_DATA', 'VSC_SCRATCH'])
+    envar = parameter(envars)
     valid_systems = ["*:local", "*:single-node"]
     valid_prog_environs = ["builtin"]
     time_limit = '10m'
@@ -16,8 +20,12 @@ class VSCEnvTest(rfm.RunOnlyRegressionTest):
 
     @run_after('init')
     def set_param(self):
-        self.descr += self.envar
-        self.executable = f"""python3 -c 'import os;print(os.environ["USER"] in os.environ["{self.envar}"])'"""
+        self.descr += self.envar['name']
+        exe = self.envar.get('exe')
+        if not exe:
+            # default: check if envar exists and is not empty
+            exe = """python3 -c 'import os;print(os.environ["{}"] != "")'"""
+        self.executable = exe.format(self.envar['name'])
 
     @sanity_function
     def assert_env(self):
