@@ -1,29 +1,16 @@
+shared_fs_sites = ['antwerpen', 'brussel', 'gent', 'leuven']
+
 shared_fs = [
     {
-        'mount': '/data/antwerpen',
+        'mount': '/data',
+        'envar': 'VSC_DATA',
     },
     {
-        'mount': '/data/brussel',
-    },
-    {
-        'mount': '/data/gent',
-    },
-    {
-        'mount': '/data/leuven',
-    },
-    {
-        'mount': '/user/antwerpen',
-    },
-    {
-        'mount': '/user/brussel',
-    },
-    {
-        'mount': '/user/gent',
-    },
-    {
-        'mount': '/user/leuven',
+        'mount': '/user',
+        'envar': 'VSC_HOME',
     },
     {
         'mount': '/scratch',
+        'envar': 'VSC_SCRATCH',
     },
 ]

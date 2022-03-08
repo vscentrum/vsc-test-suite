@@ -4,13 +4,14 @@ import reframe.utility.sanity as sn
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
-from shared_fs_list import shared_fs
+from shared_fs_list import shared_fs, shared_fs_sites
 
 
 @rfm.simple_test
 class VSCSharedFSMountTest(rfm.RunOnlyRegressionTest):
-    descr = "test shared filesystem mount "
+    descr = "test shared filesystem mount point "
     fs = parameter(shared_fs)
+    site = parameter(shared_fs_sites)
     valid_systems = ["*:local", "*:single-node"]
     valid_prog_environs = ["builtin"]
     maintainers = ['rverschoren']
@@ -22,12 +23,10 @@ class VSCSharedFSMountTest(rfm.RunOnlyRegressionTest):
 
     @run_after('init')
     def set_param(self):
-        self.descr += self.fs['mount']
-        exe = self.fs.get('exe')
-        if not exe:
-            # default: check if directory is a mount point
-            exe = """python3 -c 'import os;print(os.path.ismount(os.path.realpath("{}")))'"""
-        self.executable = exe.format(self.fs['mount'])
+        path = os.path.join(self.fs['mount'], self.site)
+        self.descr += path
+        exe = """python3 -c 'import os;print(os.path.isdir(os.path.realpath("{}")))'"""
+        self.executable = exe.format(path)
 
     @sanity_function
     def assert_env(self):
@@ -38,6 +37,7 @@ class VSCSharedFSMountTest(rfm.RunOnlyRegressionTest):
 class VSCSharedFSMode(rfm.RunOnlyRegressionTest):
     descr = "test shared filesystem mode "
     fs = parameter(shared_fs)
+    site = parameter(shared_fs_sites)
     valid_systems = ["*:local", "*:single-node"]
     valid_prog_environs = ["builtin"]
     maintainers = ['rverschoren']
@@ -49,13 +49,44 @@ class VSCSharedFSMode(rfm.RunOnlyRegressionTest):
 
     @run_after('init')
     def set_param(self):
-        self.descr += self.fs['mount']
+        path = os.path.join(self.fs['mount'], self.site)
+        self.descr += path
         mode = self.fs.get('mode')
         if not mode:
             # default: check if directory has rwxr-xr-x permissions 
             mode = '755'
         exe = """python3 -c 'import os;print(oct(os.stat(os.path.realpath("{}")).st_mode)[-3:] == "{}")'"""
-        self.executable = exe.format(self.fs['mount'], mode)
+        self.executable = exe.format(path, mode)
+
+    @sanity_function
+    def assert_env(self):
+        return sn.assert_found(r'^True$', self.stdout)
+
+
+@rfm.simple_test
+class VSCSharedFSAccountDir(rfm.RunOnlyRegressionTest):
+    descr = "test account directory "
+    fs = parameter(shared_fs)
+    valid_systems = ["*:local", "*:single-node"]
+    valid_prog_environs = ["builtin"]
+    maintainers = ['rverschoren']
+    time_limit = '10m'
+    num_tasks = 1
+    num_tasks_per_node = 1
+    num_cpus_per_task = 1
+    tags = {"antwerp"}
+
+    @run_after('init')
+    def set_param(self):
+        self.descr += self.fs['mount'] + " " + self.fs['envar'] + " " + os.environ['USER']
+        path = os.environ[self.fs['envar']]
+        if not path:
+            # Order is important for indexing
+            sites = ['brussel', 'antwerpen', 'leuven', 'gent']
+            account_site = sites[int(os.environ['USER'][3])-1]
+            path = os.path.join(self.fs['mount'], account_site, os.environ['USER'][3:6], os.environ['USER'])
+        exe = """python3 -c 'import os;print(os.path.isdir(os.path.realpath("{}")))'"""
+        self.executable = exe.format(path)
 
     @sanity_function
     def assert_env(self):
