@@ -81,9 +81,8 @@ class VSCSharedFSAccountDir(rfm.RunOnlyRegressionTest):
         self.descr += self.fs['mount'] + " " + self.fs['envar'] + " " + os.environ['USER']
         path = os.environ[self.fs['envar']]
         if not path:
-            # Order is important for indexing
-            sites = ['brussel', 'antwerpen', 'leuven', 'gent']
-            account_site = sites[int(os.environ['USER'][3])-1]
+            sites = {'1': "brussel", '2': "antwerpen", '3': "leuven", '4': "gent"}
+            account_site = sites[os.environ["USER"][3]]
             path = os.path.join(self.fs['mount'], account_site, os.environ['USER'][3:6], os.environ['USER'])
         exe = """python3 -c 'import os;print(os.path.isdir(os.path.realpath("{}")))'"""
         self.executable = exe.format(path)
