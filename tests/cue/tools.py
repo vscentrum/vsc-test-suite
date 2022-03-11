@@ -5,7 +5,7 @@ import reframe.utility.sanity as sn
 import sys
 import json
 
-sys.path.append(os.path.dirname(__file__)+'/src')
+sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 from tools_list import tools
 
 @rfm.simple_test
