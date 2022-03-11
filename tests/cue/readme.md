@@ -18,3 +18,12 @@ Each entry of the document is structured as follows:
 ## env.py
 
 ## shared_fs.py
+
+This file contains tests which check the availability and mode of the shared file system and availability of account directories. 
+
+To add an extra directory to test, edit the json `./src/shared_fs_list.py`.
+Each entry of the document is structured as follows:
+* mandatory entry
+    * `mount`: the mount point/directory undergoing testing
+* optional entry
+    * `envar`: environment variable associated with the directory
