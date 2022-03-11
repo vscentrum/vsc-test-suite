@@ -68,6 +68,8 @@ site_configuration = {
             'descr': 'VSC Tier-1 Hortense',
             'hostnames': ['login.*.dodrio.os'],
             'modules_system': 'lmod',
+            # specify Slurm account to use (credits)
+            'variables': [['SBATCH_ACCOUNT', "'gadminforever'"]],
             'partitions': [
                 {
                     'name': 'local',
