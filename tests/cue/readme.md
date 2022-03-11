@@ -16,3 +16,14 @@ Each entry of the document is structured as follows:
     * `modname`: load the specified module before executing the test. Packages requiring a module load in certain sites and are installed at system level in others can be handled by greedly adding the required module in this field. 
 
 ## env.py
+
+## shared_fs.py
+
+This file contains tests which check the availability and mode of the shared file system and availability of account directories. 
+
+To add an extra directory to test, edit the json `./src/shared_fs_list.py`.
+Each entry of the document is structured as follows:
+* mandatory entry
+    * `mount`: the mount point/directory undergoing testing
+* optional entry
+    * `envar`: environment variable associated with the directory
