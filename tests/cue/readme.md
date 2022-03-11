@@ -16,3 +16,12 @@ Each entry of the document is structured as follows:
     * `modname`: load the specified module before executing the test. Packages requiring a module load in certain sites and are installed at system level in others can be handled by greedly adding the required module in this field. 
 
 ## env.py
+
+The test executes checks on environment variables.
+
+To add an extra variable edit the json `./src/envars_list.py`.
+Each entry is structured as follows:
+* mandatory entries
+   * `name`: the actual variable
+* optional entries
+   * `exe`: the script executed by the test. The default script-string checks if envar exists and is not empty `"""python3 -c 'import os;print(os.environ["{}"] != "")'"""`. The inserted string will be then formatted: the variable name is identified by the brachets `{}` .
