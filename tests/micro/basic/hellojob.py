@@ -12,7 +12,7 @@ class VSCJobTest(rfm.RunOnlyRegressionTest):
     num_tasks_per_node = 1
     num_cpus_per_task = 1
     executable = 'echo hello world!'
-    tags = {"antwerp"}
+    tags = {"VSC", "micro"}
 
     @sanity_function
     def assert_job(self):
