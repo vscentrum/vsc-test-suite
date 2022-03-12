@@ -32,7 +32,7 @@ class MPIHelloWorldTest(rfm.RegressionTest):
     num_cpus_per_task = 1
     executable = 'mpi_hello_world'
     sourcesdir = 'src_mpi_hello_world'
-    tags = {"VSC", "micro"}
+    tags = {"vsc", "micro"}
 
     @run_before('run')
     def set_launcher_to_mympirun(self):

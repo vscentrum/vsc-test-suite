@@ -17,7 +17,7 @@ class VSCEnvTest(rfm.RunOnlyRegressionTest):
     num_tasks_per_node = 1
     num_cpus_per_task = 1
     maintainers = ["smoors", "Lewih"]
-    tags = {"VSC", "CUE"}
+    tags = {"vsc", "cue"}
 
     @run_after('init')
     def set_param(self):
