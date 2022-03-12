@@ -25,3 +25,14 @@ Each entry is structured as follows:
    * `name`: the actual variable
 * optional entries
    * `exe`: the script executed by the test. The default script-string checks if envar exists and is not empty `"""python3 -c 'import os;print(os.environ["{}"] != "")'"""`. The inserted string will be then formatted: the variable name is identified by the brachets `{}` .
+
+## shared_fs.py
+
+This file contains tests which check the availability and mode of the shared file system and availability of account directories. 
+
+To add an extra directory to test, edit the json `./src/shared_fs_list.py`.
+Each entry of the document is structured as follows:
+* mandatory entry
+    * `mount`: the mount point/directory undergoing testing
+* optional entry
+    * `envar`: environment variable associated with the directory
