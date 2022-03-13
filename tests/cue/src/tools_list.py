@@ -114,4 +114,9 @@ tools = [
         'minver': '4.4.0',
         'modname': 'EasyBuild',
     },
+    {
+        'exe': 'reframe',
+        'minver': '3.10.1',
+        'modname': 'ReFrame',
+    },
 ]

@@ -17,6 +17,15 @@ Each entry of the document is structured as follows:
 
 ## env.py
 
+The test executes checks on environment variables.
+
+To add an extra variable edit the json `./src/envars_list.py`.
+Each entry is structured as follows:
+* mandatory entries
+   * `name`: the actual variable
+* optional entries
+   * `exe`: the script executed by the test. The default script-string checks if envar exists and is not empty `"""python3 -c 'import os;print(os.environ["{}"] != "")'"""`. The inserted string will be then formatted: the variable name is identified by the brachets `{}` .
+
 ## shared_fs.py
 
 This file contains tests which check the availability and mode of the shared file system and availability of account directories. 
