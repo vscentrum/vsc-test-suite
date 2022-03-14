@@ -45,18 +45,11 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
         self.valid_systems = ['*:single-node']
 
         self.reference = {
-            'leibniz:node': {
-                'dot': (0.3, None, 0.10, 'seconds'),
-                'svd': (0.3, None, 0.10, 'seconds'),
-                'cholesky': (0.12, None, 0.10, 'seconds'),
-                'eigendec': (3.9, None, 0.10, 'seconds'),
-                'inv': (0.15, None, 0.10, 'seconds'),
-            },
-            'vaughan:node': {
-                'dot': (0.35, None, 0.10, 'seconds'),
-                'svd': (0.66, None, 0.10, 'seconds'),
+            'vaughan:single-node': {
+                'dot': (0.30, None, 0.10, 'seconds'),
+                'svd': (0.55, None, 0.10, 'seconds'),
                 'cholesky': (0.3, None, 0.10, 'seconds'),
-                'eigendec': (9.52, None, 0.10, 'seconds'),
+                'eigendec': (7.0, None, 0.10, 'seconds'),
                 'inv': (0.40, None, 0.10, 'seconds'),
             },
         }
