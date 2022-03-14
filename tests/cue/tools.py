@@ -10,8 +10,8 @@ from tools_list import tools
 
 @rfm.simple_test
 class VSCToolAvailabilityTest(rfm.RunOnlyRegressionTest):
-    descr = "test availability of "
-    tool = parameter(tools)
+    descr = "test command availability of "
+    tool = parameter(tools.keys())
     valid_systems = ["*:local"]
     valid_prog_environs = ["builtin"]
     time_limit = '10m'
@@ -23,9 +23,9 @@ class VSCToolAvailabilityTest(rfm.RunOnlyRegressionTest):
 
     @run_after('init')
     def set_param(self):
-        self.descr += self.tool['exe']
-        self.executable = f"""command -v {self.tool['exe']}"""
-        modname = self.tool.get('modname')
+        self.descr += self.tool
+        self.executable = f"""command -v {tools[self.tool]['exe']}"""
+        modname = tools[self.tool].get('modname')
         if modname:
             self.modules = [modname]
 
@@ -36,7 +36,7 @@ class VSCToolAvailabilityTest(rfm.RunOnlyRegressionTest):
 
 @rfm.simple_test
 class VSCToolVersionTest(rfm.RunOnlyRegressionTest):
-    tool = parameter(tools)
+    tool = parameter(tools.keys())
     valid_systems = ["*:local"]
     valid_prog_environs = ["builtin"]
     time_limit = '10m'
@@ -48,12 +48,12 @@ class VSCToolVersionTest(rfm.RunOnlyRegressionTest):
     @run_after('init')
     def set_param(self):
         ## dependency between tests
-        variant = VSCToolAvailabilityTest.get_variant_nums(tool=lambda x: x['exe']==self.tool['exe'])
+        variant = VSCToolAvailabilityTest.get_variant_nums(tool=lambda x: x==self.tool)
         self.depends_on(VSCToolAvailabilityTest.variant_name(variant[0]))
 
-        self.descr = f"{self.tool['exe']} version >= {self.tool['minver']}"
-        self.executable = f"""python3 version_check.py '{json.dumps(self.tool)}' """
-        modname = self.tool.get('modname')
+        self.descr = f"{self.tool} version >= {tools[self.tool]['minver']}"
+        self.executable = f"""python3 version_check.py '{json.dumps(tools[self.tool])}' """
+        modname = tools[self.tool].get('modname')
         if modname:
             self.modules = [modname]
 
