@@ -45,7 +45,7 @@ class VSCSharedFSMode(rfm.RunOnlyRegressionTest):
     num_tasks = 1
     num_tasks_per_node = 1
     num_cpus_per_task = 1
-    tags = {"antwerp"}
+    tags = {"vsc", "cue"}
 
     @run_after('init')
     def set_param(self):
@@ -74,7 +74,7 @@ class VSCSharedFSAccountDir(rfm.RunOnlyRegressionTest):
     num_tasks = 1
     num_tasks_per_node = 1
     num_cpus_per_task = 1
-    tags = {"antwerp"}
+    tags = {"vsc", "cue"}
 
     @run_after('init')
     def set_param(self):
