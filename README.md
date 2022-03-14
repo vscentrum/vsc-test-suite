@@ -7,8 +7,10 @@ run script that works recursively
 
 ```
 cd vsc-test-suite
-./run.sh
+./run.sh args
 ```
+
+Optional `args` will be passed to the reframe command.
 
 ## Output location
 
