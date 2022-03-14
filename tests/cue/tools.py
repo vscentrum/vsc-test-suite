@@ -10,7 +10,7 @@ from tools_list import tools
 
 @rfm.simple_test
 class VSCToolAvailabilityTest(rfm.RunOnlyRegressionTest):
-    descr = "test availability"
+    descr = "test availability of "
     tool = parameter(tools)
     valid_systems = ["*:local"]
     valid_prog_environs = ["builtin"]
@@ -36,7 +36,6 @@ class VSCToolAvailabilityTest(rfm.RunOnlyRegressionTest):
 
 @rfm.simple_test
 class VSCToolVersionTest(rfm.RunOnlyRegressionTest):
-    descr = "test version"
     tool = parameter(tools)
     valid_systems = ["*:local"]
     valid_prog_environs = ["builtin"]
@@ -44,11 +43,15 @@ class VSCToolVersionTest(rfm.RunOnlyRegressionTest):
     num_tasks = 1
     num_tasks_per_node = 1
     num_cpus_per_task = 1
-    tags = {"antwerp"}
+    tags = {"vsc", "cue"}
 
     @run_after('init')
     def set_param(self):
-        self.descr += self.tool['exe']
+        ## dependency between tests
+        variant = VSCToolAvailabilityTest.get_variant_nums(tool=lambda x: x['exe']==self.tool['exe'])
+        self.depends_on(VSCToolAvailabilityTest.variant_name(variant[0]))
+
+        self.descr = f"{self.tool['exe']} version >= {self.tool['minver']}"
         self.executable = f"""python3 version_check.py '{json.dumps(self.tool)}' """
         modname = self.tool.get('modname')
         if modname:
