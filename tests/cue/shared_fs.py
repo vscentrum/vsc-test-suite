@@ -10,7 +10,7 @@ from shared_fs_list import shared_fs, shared_fs_sites
 @rfm.simple_test
 class VSCSharedFSMountTest(rfm.RunOnlyRegressionTest):
     descr = "test shared filesystem mount point "
-    fs = parameter(shared_fs)
+    fs = parameter(shared_fs.keys())
     site = parameter(shared_fs_sites)
     valid_systems = ["*:local", "*:single-node"]
     valid_prog_environs = ["builtin"]
@@ -23,7 +23,7 @@ class VSCSharedFSMountTest(rfm.RunOnlyRegressionTest):
 
     @run_after('init')
     def set_param(self):
-        path = os.path.join(self.fs['mount'], self.site)
+        path = os.path.join(shared_fs[self.fs]['mount'], self.site)
         self.descr += path
         exe = """python3 -c 'import os;print(os.path.isdir(os.path.realpath("{}")))'"""
         self.executable = exe.format(path)
@@ -36,7 +36,7 @@ class VSCSharedFSMountTest(rfm.RunOnlyRegressionTest):
 @rfm.simple_test
 class VSCSharedFSMode(rfm.RunOnlyRegressionTest):
     descr = "test shared filesystem mode "
-    fs = parameter(shared_fs)
+    fs = parameter(shared_fs.keys())
     site = parameter(shared_fs_sites)
     valid_systems = ["*:local", "*:single-node"]
     valid_prog_environs = ["builtin"]
@@ -45,13 +45,13 @@ class VSCSharedFSMode(rfm.RunOnlyRegressionTest):
     num_tasks = 1
     num_tasks_per_node = 1
     num_cpus_per_task = 1
-    tags = {"antwerp"}
+    tags = {"vsc", "cue"}
 
     @run_after('init')
     def set_param(self):
-        path = os.path.join(self.fs['mount'], self.site)
+        path = os.path.join(shared_fs[self.fs]['mount'], self.site)
         self.descr += path
-        mode = self.fs.get('mode')
+        mode = shared_fs[self.fs].get('mode')
         if not mode:
             # default: check if directory has rwxr-xr-x permissions 
             mode = '755'
@@ -66,7 +66,7 @@ class VSCSharedFSMode(rfm.RunOnlyRegressionTest):
 @rfm.simple_test
 class VSCSharedFSAccountDir(rfm.RunOnlyRegressionTest):
     descr = "test account directory "
-    fs = parameter(shared_fs)
+    fs = parameter(shared_fs.keys())
     valid_systems = ["*:local", "*:single-node"]
     valid_prog_environs = ["builtin"]
     maintainers = ['rverschoren']
@@ -74,16 +74,16 @@ class VSCSharedFSAccountDir(rfm.RunOnlyRegressionTest):
     num_tasks = 1
     num_tasks_per_node = 1
     num_cpus_per_task = 1
-    tags = {"antwerp"}
+    tags = {"vsc", "cue"}
 
     @run_after('init')
     def set_param(self):
-        self.descr += self.fs['mount'] + " " + self.fs['envar'] + " " + os.environ['USER']
-        path = os.environ[self.fs['envar']]
+        self.descr += shared_fs[self.fs]['mount'] + " " + shared_fs[self.fs]['envar'] + " " + os.environ['USER']
+        path = os.environ[shared_fs[self.fs]['envar']]
         if not path:
             sites = {'1': "brussel", '2': "antwerpen", '3': "leuven", '4': "gent"}
             account_site = sites[os.environ["USER"][3]]
-            path = os.path.join(self.fs['mount'], account_site, os.environ['USER'][3:6], os.environ['USER'])
+            path = os.path.join(shared_fs[self.fs]['mount'], account_site, os.environ['USER'][3:6], os.environ['USER'])
         exe = """python3 -c 'import os;print(os.path.isdir(os.path.realpath("{}")))'"""
         self.executable = exe.format(path)
 
