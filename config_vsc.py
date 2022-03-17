@@ -20,9 +20,9 @@ perf_logging_format = 'reframe: ' + '|'.join(
     ]
 )
 
-# To run jobs on the kul cluster, you need to have access to following credit
-# account (currently only the case for kul admins)
-kul_account_string_tier2 = '-A lpt2_sysadmin'
+# To run jobs on the kul cluster, you need to be a member of the following
+# vsc group
+kul_account_string_tier2 = '-A lpt2_vsc_test_suite'
 
 site_configuration = {
     'systems': [
