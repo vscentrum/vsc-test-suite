@@ -26,6 +26,8 @@ class VSCEnvTest(rfm.RunOnlyRegressionTest):
         if not exe:
             # default: check if envar exists and is not empty
             exe = """python3 -c 'import os;print(os.environ["{}"] != "")'"""
+        else:
+            exe = "python3 -c 'import os;{}'".format(';'.join(exe))
         self.executable = exe.format(envars[self.envar]['name'])
 
     @sanity_function
