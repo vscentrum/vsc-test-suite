@@ -16,11 +16,13 @@ envars = {
         # archspec is automatically installed as part of ReFrame
         'exe': [
             'import archspec.cpu',
-            'aliases = {"skylake": "skylake_avx512"}',  # exceptions to the (full) archspec name
+            'aliases = {"skylake": ["skylake_avx512",], "rome": ["zen2"]}',  # exceptions to the (full) archspec name
             'env = os.environ["VSC_ARCH_LOCAL"]',
             'if env in aliases.keys():',
             '    env = aliases[env]',
-            'print(env == archspec.cpu.host().name)',
+            '    print(archspec.cpu.host().name in env)',
+            'else:',
+            '    print(env == archspec.cpu.host().name)',
         ],
     },
     'VSC_ARCH_SUFFIX':
