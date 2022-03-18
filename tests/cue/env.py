@@ -21,14 +21,9 @@ class VSCEnvTest(rfm.RunOnlyRegressionTest):
 
     @run_after('init')
     def set_param(self):
-        self.descr += envars[self.envar]['name']
-        exe = envars[self.envar].get('exe')
-        if not exe:
-            # default: check if envar exists and is not empty
-            exe = """python3 -c 'import os;print(os.environ["{}"] != "")'"""
-        else:
-            exe = "python3 -c 'import os;{}'".format(';'.join(exe))
-        self.executable = exe.format(envars[self.envar]['name'])
+        self.descr += self.envar
+        exe = envars[self.envar]['exe']
+        self.executable = "python3 -c 'import os;{}'".format('\n'.join(exe))
 
     @sanity_function
     def assert_env(self):
