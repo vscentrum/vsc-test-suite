@@ -45,7 +45,7 @@ envars = {
     },
     'VSC_SCRATCH_NODE':
     {
-        'exe': ['print(os.environ["VSC_SCRATCH_NODE"] in ["/local", "/node_scratch", "/tmp"])'],
+        'exe': ['print(os.environ["VSC_SCRATCH_NODE"] in ["/local", "/node_scratch/", "/tmp"])'],
     },
     'VSC_SCRATCH_SITE':
     {
