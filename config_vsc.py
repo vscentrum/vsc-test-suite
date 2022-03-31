@@ -147,7 +147,7 @@ site_configuration = {
         {
             'name': 'vaughan',
             'descr': 'VSC Tier-2 Vaughan',
-            'hostnames': ['login', 'vaughan'],
+            'hostnames': ['login[1-2].vaughan'],
             'modules_system': 'lmod',
             'partitions': [
                 {
