@@ -9,7 +9,8 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
         self.descr = 'Test a few typical numpy operations'
         self.valid_prog_environs = ['builtin']
         self.modules = ['Python']
-        
+        self.time_limit = '20m'
+
         self.perf_patterns = {
             'dot': sn.extractsingle(
                 r'^Dotted two \S* matrices in\s+(?P<dot>\S+)\s+s',
