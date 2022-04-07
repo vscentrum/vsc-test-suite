@@ -55,6 +55,13 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
                 'eigendec': (7.0, None, 0.10, 'seconds'),
                 'inv': (0.22, None, 0.10, 'seconds'),
             },
+            'hydra:single-node': {
+                'dot': (0.25, None, 0.10, 'seconds'),
+                'svd': (25.82, None, 0.10, 'seconds'),
+                'cholesky': (0.77, None, 0.10, 'seconds'),
+                'eigendec': (58.50, None, 0.10, 'seconds'),
+                'inv': (0.54, None, 0.10, 'seconds'),
+            },
         }
 
     @run_after('setup')
@@ -64,3 +71,7 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
             'OMP_NUM_THREADS': str(self.num_cpus_per_task),
             'MKL_NUM_THREADS': str(self.num_cpus_per_task)
         }
+
+        if self.current_system.name == "hydra":
+            self.modules.append("SciPy-bundle")
+            self.job.options = ["--partition=skylake"]
