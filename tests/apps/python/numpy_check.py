@@ -62,6 +62,13 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
                 'eigendec': (58.50, None, 0.10, 'seconds'),
                 'inv': (0.54, None, 0.10, 'seconds'),
             },
+            'hortense:single-node': {
+                'dot': (1.28, None, 0.10, 'seconds'),
+                'svd': (7.54, None, 0.10, 'seconds'),
+                'cholesky': (0.58, None, 0.10, 'seconds'),
+                'eigendec': (48.79, None, 0.10, 'seconds'),
+                'inv': (1.31, None, 0.10, 'seconds'),
+            },
         }
 
     @run_after('setup')
@@ -75,3 +82,5 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
         if self.current_system.name == "hydra":
             self.modules.append("SciPy-bundle")
             self.job.options = ["--partition=skylake"]
+        elif self.current_system.name == "hortense":
+            self.modules.append("SciPy-bundle")
