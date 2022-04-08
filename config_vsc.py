@@ -1,3 +1,5 @@
+import os
+
 # use 'info' to log to syslog
 syslog_level = 'warning'
 
@@ -23,6 +25,20 @@ perf_logging_format = 'reframe: ' + '|'.join(
 # To run jobs on the kul cluster, you need to be a member of the following
 # vsc group
 kul_account_string_tier2 = '-A lpt2_vsc_test_suite'
+
+# Specify hortense access flag in order to run jobs
+# Flag is selected according to user group
+groups = os.popen('groups').read().strip().split()
+if 'astaff' in groups:
+    admingroup = 'astaff'
+elif 'bstaff' in groups:
+    admingroup = 'bstaff'
+elif 'gstaff' in groups:
+    admingroup = 'gadminforever'
+elif 'lstaff' in groups:
+    admingroup = 'lstaff'
+hortense_access_flag = f'-A {admingroup}'
+
 
 site_configuration = {
     'systems': [
@@ -68,8 +84,6 @@ site_configuration = {
             'descr': 'VSC Tier-1 Hortense',
             'hostnames': ['login.*.dodrio.os'],
             'modules_system': 'lmod',
-            # specify Slurm account to use (credits)
-            'variables': [['SBATCH_ACCOUNT', "'gadminforever'"]],
             'partitions': [
                 {
                     'name': 'local',
@@ -85,7 +99,7 @@ site_configuration = {
                     'name': 'single-node',
                     'scheduler': 'slurm',
                     'modules': [],
-                    'access': [],
+                    'access': [hortense_access_flag],
                     'environs': ['builtin'],
                     'descr': 'single-node jobs',
                     'max_jobs': 1,
@@ -94,7 +108,7 @@ site_configuration = {
                 {
                     'name': 'mpi-job',
                     'scheduler': 'slurm',
-                    'access': [],
+                    'access': [hortense_access_flag],
                     'environs': ['foss-2021a'],
                     'descr': 'MPI jobs',
                     'max_jobs': 1,
