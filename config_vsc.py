@@ -31,8 +31,8 @@ kul_account_string_tier2 = '-A lpt2_vsc_test_suite'
 groups = os.popen('groups').read().strip().split()
 if 'astaff' in groups:
     admingroup = 'astaff'
-elif 'bstaff' in groups:
-    admingroup = 'bstaff'
+elif 'badmin' in groups:
+    admingroup = 'badmin'
 elif 'gstaff' in groups:
     admingroup = 'gadminforever'
 elif 'lstaff' in groups:
