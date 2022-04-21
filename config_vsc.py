@@ -31,7 +31,7 @@ kul_account_string_tier2 = '-A lpt2_vsc_test_suite'
 # Flag is selected according to user group
 hortense_access_flag = ''
 groups = [grp.getgrgid(x).gr_name for x in os.getgroups()]
-for admingroup in ['astaff', 'badmin', 'gadminforever', 'lstaff']:
+for admingroup in ['astaff', 'badmin', 'gadminforever', 'l_sysadmin']:
     if admingroup in groups:
         hortense_access_flag = f'-A {admingroup}'
         break
