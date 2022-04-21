@@ -1,3 +1,4 @@
+import grp
 import os
 
 # use 'info' to log to syslog
