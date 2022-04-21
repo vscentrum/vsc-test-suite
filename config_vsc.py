@@ -1,3 +1,6 @@
+import grp
+import os
+
 # use 'info' to log to syslog
 syslog_level = 'warning'
 
@@ -24,6 +27,16 @@ perf_logging_format = 'reframe: ' + '|'.join(
 # vsc group
 kul_account_string_tier2 = '-A lpt2_vsc_test_suite'
 
+# Specify hortense access flag in order to run jobs
+# Flag is selected according to user group
+hortense_access_flag = ''
+groups = [grp.getgrgid(x).gr_name for x in os.getgroups()]
+for admingroup in ['astaff', 'badmin', 'gadminforever', 'l_sysadmin']:
+    if admingroup in groups:
+        hortense_access_flag = f'-A {admingroup}'
+        break
+
+# Site Configuration
 site_configuration = {
     'systems': [
         {
@@ -68,8 +81,6 @@ site_configuration = {
             'descr': 'VSC Tier-1 Hortense',
             'hostnames': ['login.*.dodrio.os'],
             'modules_system': 'lmod',
-            # specify Slurm account to use (credits)
-            'variables': [['SBATCH_ACCOUNT', "'gadminforever'"]],
             'partitions': [
                 {
                     'name': 'local',
@@ -85,7 +96,7 @@ site_configuration = {
                     'name': 'single-node',
                     'scheduler': 'slurm',
                     'modules': [],
-                    'access': [],
+                    'access': [hortense_access_flag],
                     'environs': ['builtin'],
                     'descr': 'single-node jobs',
                     'max_jobs': 1,
@@ -94,7 +105,7 @@ site_configuration = {
                 {
                     'name': 'mpi-job',
                     'scheduler': 'slurm',
-                    'access': [],
+                    'access': [hortense_access_flag],
                     'environs': ['foss-2021a'],
                     'descr': 'MPI jobs',
                     'max_jobs': 1,
