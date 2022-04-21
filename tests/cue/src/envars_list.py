@@ -14,6 +14,7 @@ envars = {
     'VSC_ARCH_LOCAL':
     {
         # archspec is automatically installed as part of ReFrame
+        # this fails in login2 of Genius due to missing aes feature
         'exe': [
             'import archspec.cpu',
             'aliases = {"skylake": ["skylake_avx512",], "rome": ["zen2"], "milan": ["zen3"]}',  # exceptions to the (full) archspec name
