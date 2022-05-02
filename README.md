@@ -23,4 +23,4 @@ Log files and output will be saved in $HOME
 
 ## TODOs
 
-- --prefix is set to $HOME in order to not have conflicts between different users (write permissions of log files mainly). needs improvement.
+- --prefix is set to $HOME/reframe in order to not have conflicts between different users (write permissions of log files mainly). needs improvement.

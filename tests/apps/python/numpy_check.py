@@ -36,7 +36,7 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
         self.executable = 'python3'
         self.executable_opts = ['np_ops.py']
         # self.use_multithreading = False
-        self.tags = {'python', 'antwerp', 'performance'}
+        self.tags = {'apps', 'python', 'performance'}
         self.maintainers = ['Lewih']
         self.valid_systems = ['*:single-node']
 
