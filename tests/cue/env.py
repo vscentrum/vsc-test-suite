@@ -17,16 +17,13 @@ class VSCEnvTest(rfm.RunOnlyRegressionTest):
     num_tasks_per_node = 1
     num_cpus_per_task = 1
     maintainers = ["smoors", "Lewih"]
-    tags = {"vsc", "cue"}
+    tags = {"vsc", "cue", "env"}
 
     @run_after('init')
     def set_param(self):
-        self.descr += envars[self.envar]['name']
-        exe = envars[self.envar].get('exe')
-        if not exe:
-            # default: check if envar exists and is not empty
-            exe = """python3 -c 'import os;print(os.environ["{}"] != "")'"""
-        self.executable = exe.format(envars[self.envar]['name'])
+        self.descr += self.envar
+        exe = envars[self.envar]['exe']
+        self.executable = "python3 -c 'import os;{}'".format('\n'.join(exe))
 
     @sanity_function
     def assert_env(self):
