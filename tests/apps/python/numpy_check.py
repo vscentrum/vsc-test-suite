@@ -80,8 +80,8 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
         }
 
         if self.current_system.name == "hydra":
-            self.modules.append("SciPy-bundle")
+            self.modules = ["SciPy-bundle/2021.10-foss-2021b"]
             self.job.options = ["--partition=skylake", "--exclusive", "--mem=0"]
         elif self.current_system.name == "hortense":
-            self.modules.append("SciPy-bundle")
+            self.modules = ["SciPy-bundle/2021.10-foss-2021b"]
             self.job.options = ["--partition=skylake", "--exclusive", "--mem=0"]
