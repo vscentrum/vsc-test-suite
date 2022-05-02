@@ -42,32 +42,32 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
 
         self.reference = {
             'vaughan:single-node': {
-                'dot': (0.30, None, 0.10, 'seconds'),
-                'svd': (0.55, None, 0.10, 'seconds'),
-                'cholesky': (0.3, None, 0.10, 'seconds'),
+                'dot': (0.7, None, 0.10, 'seconds'),
+                'svd': (0.6, None, 0.10, 'seconds'),
+                'cholesky': (0.28, None, 0.10, 'seconds'),
                 'eigendec': (7.0, None, 0.10, 'seconds'),
                 'inv': (0.40, None, 0.10, 'seconds'),
             },
             'genius:single-node': {
-                'dot': (0.46, None, 0.10, 'seconds'),
-                'svd': (0.67, None, 0.10, 'seconds'),
+                'dot': (0.7, None, 0.10, 'seconds'),
+                'svd': (0.6, None, 0.10, 'seconds'),
                 'cholesky': (0.15, None, 0.10, 'seconds'),
                 'eigendec': (7.0, None, 0.10, 'seconds'),
-                'inv': (0.22, None, 0.10, 'seconds'),
+                'inv': (0.30, None, 0.10, 'seconds'),
             },
             'hydra:single-node': {
-                'dot': (0.25, None, 0.10, 'seconds'),
-                'svd': (25.82, None, 0.10, 'seconds'),
-                'cholesky': (0.77, None, 0.10, 'seconds'),
-                'eigendec': (58.50, None, 0.10, 'seconds'),
-                'inv': (0.54, None, 0.10, 'seconds'),
+                'dot': (0.42, None, 0.10, 'seconds'),
+                'svd': (0.64, None, 0.10, 'seconds'),
+                'cholesky': (0.14, None, 0.10, 'seconds'),
+                'eigendec': (5.20, None, 0.10, 'seconds'),
+                'inv': (0.24, None, 0.10, 'seconds'),
             },
             'hortense:single-node': {
-                'dot': (1.28, None, 0.10, 'seconds'),
-                'svd': (7.54, None, 0.10, 'seconds'),
-                'cholesky': (0.58, None, 0.10, 'seconds'),
-                'eigendec': (48.79, None, 0.10, 'seconds'),
-                'inv': (1.31, None, 0.10, 'seconds'),
+                'dot': (0.62, None, 0.10, 'seconds'),
+                'svd': (1.38, None, 0.10, 'seconds'),
+                'cholesky': (0.4, None, 0.10, 'seconds'),
+                'eigendec': (8.50, None, 0.10, 'seconds'),
+                'inv': (0.5, None, 0.10, 'seconds'),
             },
         }
 
@@ -81,7 +81,7 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
 
         if self.current_system.name == "hydra":
             self.modules = ["SciPy-bundle/2021.10-foss-2021b"]
-            self.job.options = ["--partition=skylake", "--exclusive", "--mem=0"]
+            self.job.options = ["--partition=skylake", "--exclusive"]
         elif self.current_system.name == "hortense":
             self.modules = ["SciPy-bundle/2021.10-foss-2021b"]
-            self.job.options = ["--partition=skylake", "--exclusive", "--mem=0"]
+            self.job.options = ["--exclusive"]
