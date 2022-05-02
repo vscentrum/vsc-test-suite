@@ -73,7 +73,7 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
 
     @run_after('setup')
     def set_num_cpus(self):
-        self.num_cpus_per_task = 16
+        self.num_cpus_per_task = 6
         self.variables = {
             'OMP_NUM_THREADS': str(self.num_cpus_per_task),
             'MKL_NUM_THREADS': str(self.num_cpus_per_task)
@@ -81,6 +81,7 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
 
         if self.current_system.name == "hydra":
             self.modules.append("SciPy-bundle")
-            self.job.options = ["--partition=skylake"]
+            self.job.options = ["--partition=skylake", "--exclusive", "--mem=0"]
         elif self.current_system.name == "hortense":
             self.modules.append("SciPy-bundle")
+            self.job.options = ["--partition=skylake", "--exclusive", "--mem=0"]
