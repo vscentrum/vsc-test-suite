@@ -147,11 +147,14 @@ site_configuration = {
                     'name': 'mpi-job',
                     'scheduler': 'torque',
                     'access': [kul_account_string_tier2],
-                    'environs': ['foss-2021a'],
+                    'environs': ['builtin', 'foss-2021a'],
                     'descr': 'MPI jobs',
                     'max_jobs': 1,
                     'launcher': 'mpirun',
-                    'variables': [['MODULEPATH', '/apps/leuven/skylake/2021a/modules/all']],
+                    'variables': [['MODULEPATH',
+                                   ('/apps/leuven/skylake/2018a/modules/all:'
+                                    '/apps/leuven/skylake/2021a/modules/all')
+                                 ]],
                 },
             ]
         },
