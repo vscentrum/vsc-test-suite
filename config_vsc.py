@@ -69,7 +69,7 @@ site_configuration = {
                     'name': 'mpi-job',
                     'scheduler': 'slurm',
                     'access': [],
-                    'environs': ['foss-2021a'],
+                    'environs': ['foss-2021a', 'builtin'],
                     'descr': 'MPI jobs',
                     'max_jobs': 1,
                     'launcher': 'srun',
@@ -106,7 +106,7 @@ site_configuration = {
                     'name': 'mpi-job',
                     'scheduler': 'slurm',
                     'access': [hortense_access_flag],
-                    'environs': ['foss-2021a'],
+                    'environs': ['foss-2021a', 'builtin'],
                     'descr': 'MPI jobs',
                     'max_jobs': 1,
                     # TODO Here we actually want to set vsc-mympirun, but since
@@ -188,7 +188,7 @@ site_configuration = {
                     'name': 'mpi-job',
                     'scheduler': 'slurm',
                     'access': [],
-                    'environs': ['intel-2021a'],
+                    'environs': ['intel-2021a', 'builtin'],
                     'descr': 'MPI jobs',
                     'max_jobs': 1,
                     # TODO Here we actually want to set vsc-mympirun, but since

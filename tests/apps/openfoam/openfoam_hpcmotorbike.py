@@ -38,11 +38,11 @@ class OpenFOAMHPCMotorbikeTest(rfm.RunOnlyRegressionTest):
             ['OpenFOAM/8-foss-2020a'],
             ))
         job_options = ["--partition=skylake_mpi"]
-    elif cluster == 'hortense':
+    elif cluster == 'dodrio':
         num_tasks_per_node = 128
         modules_to_test = parameter((
-            ['OpenFOAM/8-foss-2020a'],
-            ['OpenFOAM/8-intel-2020a'],
+            ['OpenFOAM/8-foss-2020b'],
+            ['OpenFOAM/8-intel-2020b'],
             ))
         job_options = []
     else:
@@ -67,23 +67,23 @@ class OpenFOAMHPCMotorbikeTest(rfm.RunOnlyRegressionTest):
         self.job.launcher = getlauncher('local')()
 
     @sanity_function
-    def check_number_of_steps(self):
+    def check_steps_and_cells(self):
         # Check that the expected number of steps are executed
         pattern = r'^ExecutionTime = [0-9.]* s[ ]*ClockTime = (?P<clocktime>\S+) s$'
         self.clocktimes = sn.extractall(pattern, 'log.simpleFoam',
                                         'clocktime', float)
-        return sn.assert_eq(sn.count(self.clocktimes), 500)
+        check_number_of_steps = sn.assert_eq(sn.count(self.clocktimes), 500)
 
-    @sanity_function
-    def check_number_of_grid_points(self):
-         # Check that the number of grid points is as expected
-         pattern = r'^[\s]+cells:\s+(?P<cells>[0-9]+)$'
-         cells = sn.extractsingle(pattern, 'log.checkMesh',
-                                  'cells', int)
-         # We cannot enforce equality, the number of cells slightly depends
-         # on the number of processes. This check does avoid situations where
-         # the number of cells is blatantly lower than 34M
-         return sn.assert_ge(cells, 34000000)
+        # Check that the number of grid points is as expected
+        pattern = r'^[\s]+cells:\s+(?P<cells>[0-9]+)$'
+        cells = sn.extractsingle(pattern, 'log.checkMesh',
+                                 'cells', int)
+        # We cannot enforce equality, the number of cells slightly depends
+        # on the number of processes. This check does avoid situations where
+        # the number of cells is blatantly lower than 34M
+        check_number_of_cells = sn.assert_ge(cells, 34000000)
+
+        return sn.and_(check_number_of_steps, check_number_of_cells)
 
     @performance_function('s')
     def time(self):
