@@ -71,7 +71,7 @@ site_configuration = {
                     'access': [],
                     'environs': ['foss-2021a', 'builtin'],
                     'descr': 'MPI jobs',
-                    'max_jobs': 1,
+                    'max_jobs': 4,
                     'launcher': 'srun',
                 },
             ]
@@ -108,7 +108,7 @@ site_configuration = {
                     'access': [hortense_access_flag],
                     'environs': ['foss-2021a', 'builtin'],
                     'descr': 'MPI jobs',
-                    'max_jobs': 1,
+                    'max_jobs': 4,
                     # TODO Here we actually want to set vsc-mympirun, but since
                     # this is a custom launcher not shipped with ReFrame, we
                     # can only do this in the test itself after registering the
@@ -149,7 +149,7 @@ site_configuration = {
                     'access': [kul_account_string_tier2],
                     'environs': ['builtin', 'foss-2021a'],
                     'descr': 'MPI jobs',
-                    'max_jobs': 1,
+                    'max_jobs': 4,
                     'launcher': 'mpirun',
                     'variables': [['MODULEPATH',
                                    ('/apps/leuven/skylake/2018a/modules/all:'
@@ -190,7 +190,7 @@ site_configuration = {
                     'access': [],
                     'environs': ['intel-2021a', 'builtin'],
                     'descr': 'MPI jobs',
-                    'max_jobs': 1,
+                    'max_jobs': 4,
                     # TODO Here we actually want to set vsc-mympirun, but since
                     # this is a custom launcher not shipped with ReFrame, we
                     # can only do this in the test itself after registering the

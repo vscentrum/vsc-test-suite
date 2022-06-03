@@ -10,18 +10,19 @@ version=v8
 # Prepare environment
 source $FOAM_BASH
 
-# Prepare a job-specific work directory in $VSC_SCRATCH
+# Prepare a job-specific work directory in $REFRAME_SCRATCHDIR
 if [ ! -z ${SLURM_JOB_ID+x} ]
 then
-    workdir=${VSC_SCRATCH}/reframe_${SLURM_JOB_ID}
+    workdir=${REFRAME_SCRATCHDIR}/reframe_${SLURM_JOB_ID}
 elif [ ! -z ${PBS_JOBID+x} ]
 then
-    workdir=${VSC_SCRATCH}/reframe_${PBS_JOBID}
+    workdir=${REFRAME_SCRATCHDIR}/reframe_${PBS_JOBID}
 else
     echo "Failed to create work directory"
 fi
 origdir=$(pwd)
-echo $workdir
+echo "Original directory: " ${origdir}
+echo "Work directory: " $workdir
 mkdir -p ${workdir}
 cd ${workdir}
 
@@ -37,14 +38,15 @@ mesh_script=Allmesh${size:0:1}
 chmod u+x ${mesh_script}
 ./${mesh_script}
 
-# Check mesh
+# Check mesh and copy back logfile
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
-runParallel checkMesh
+runApplication checkMesh
+cp log.checkMesh ${origdir}
 
 # Run case
 chmod u+x Allclean
 chmod u+x Allrun
 ./Allrun
 
-# Copy back files
+# Copy main logfile
 cp log.simpleFoam log.checkMesh ${origdir}
