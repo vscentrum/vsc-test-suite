@@ -1,3 +1,45 @@
+'''
+OpenFOAM is free, open source software for CFD from the OpenFOAM Foundation.
+The benchmark considered here is a variant of the Motorbike example shipped
+with OpenFOAM, adapted to better suit typical usage of OpenFOAM in an HPC
+environment. The input files are talken from the Large variant of the HPC
+motorbike benchmark
+(see https://develop.openfoam.com/committees/hpc/-/wikis/HPC-motorbike).
+
+Before the actual CFD solver starts, the mesh has to be constructed. In
+production runs, the mesh generation typically will only take small fraction
+of the total wall time, and is therefore not part of the performance timings
+in this test. The mesh generation has a large contribution to the runtime of
+this test. So unfortunately, only a small portion is used to get performance
+metrics.
+
+The test currently runs using all available cores on a node as this is likely
+how it would be used in production runs. Cases are generated for 1 and 4 full
+nodes in order to study the internode scaling. Comparing timings for different
+clusters is difficult because of the different core counts and the different
+versions of OpenFOAM that are used.
+As said before, directly comparing timings on different cluster is not easy.
+Looking at the timings on 1 node, it seems that the Intel-based nodes of
+genius (36 cores per node) and hydra-skylake (40 cores per node) offer a
+better performance *per core* than the AMD-based nodes of vaughan (64 cores
+per node) and Hortense (128 cores per node). Of course, the decision to do the
+comparison on a *per core* basis is very debatable. These numbers then
+probably just illustrate that on genius/hydra you get a higher-memory bandwidth
+*per core*, which is of course beneficial for this memory-bound code.
+On most clusters a superlinear speedup is observed when comparing the timings
+on 1 full node and 4 full nodes. This has been reported before for OpenFOAM
+and is most likely caused by the increase in availability and use of cache
+memory when using more nodes, which again is very beneficial for a memory-bound
+code like OpenFOAM. It is not yet clear why this is not the case on genius.
+
+cluster     version         time 1 node     time 4 nodes        speedup
+-----------------------------------------------------------------------
+genius      8-intel-2018a          6178             1629            3.8
+hydra       8-foss-2020a           6487             1599            4.1
+vaughan     8-intel-2020a          8490             2066            4.1
+hortense    8-intel-2020b          3848              696            5.5
+'''
+
 import os
 import reframe as rfm
 import reframe.utility.sanity as sn
@@ -55,7 +97,7 @@ performance_references = {
         'hortense:mpi-job': {'time': (3848.0, None, 0.1, 's')},
         '*': default_performance_reference,
     },
-    (4, 'OpenFOAM/8-foss-2020a'): {
+    (4, 'OpenFOAM/8-intel-2020b'): {
         'hortense:mpi-job': {'time': (696.0, None, 0.1, 's')},
         '*': default_performance_reference,
     },
