@@ -48,6 +48,13 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
                 'eigendec': (7.0, None, 0.10, 'seconds'),
                 'inv': (0.40, None, 0.10, 'seconds'),
             },
+            'leibniz:single-node': {
+                'dot': (0.72, None, 0.10, 'seconds'),
+                'svd': (0.42, None, 0.10, 'seconds'),
+                'cholesky': (0.01, None, 0.10, 'seconds'),
+                'eigendec': (4.3, None, 0.10, 'seconds'),
+                'inv': (0.25, None, 0.10, 'seconds'),
+            },
             'genius:single-node': {
                 'dot': (0.7, None, 0.10, 'seconds'),
                 'svd': (0.6, None, 0.10, 'seconds'),
