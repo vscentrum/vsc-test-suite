@@ -38,7 +38,10 @@ class MatlabLinalgBaseTest(rfm.RunOnlyRegressionTest):
 class MatlabLinalgTest(MatlabLinalgBaseTest):
     def __init__(self):
         super().__init__()
-        self.valid_systems = ['leibniz:single-node', 'vaughan:single-node']
+        self.valid_systems = ['leibniz:single-node',
+                              'vaughan:single-node',
+                              'hydra:single-node',
+                              'genius:single-node']
 
         self.reference = {
             'leibniz:single-node': {
@@ -51,12 +54,29 @@ class MatlabLinalgTest(MatlabLinalgBaseTest):
                 'cholesky': (0.06, None, 0.10, 'seconds'),
                 'lu': (0.18, None, 0.10, 'seconds'),
             },
+            'genius:single-node': {
+                'dot': (0.14, None, 0.10, 'seconds'),
+                'cholesky': (0.05, None, 0.10, 'seconds'),
+                'lu': (0.29, None, 0.10, 'seconds'),
+            },
+            'hydra:single-node': {
+                'dot': (0.14, None, 0.10, 'seconds'),
+                'cholesky': (0.05, None, 0.10, 'seconds'),
+                'lu': (0.20, None, 0.10, 'seconds'),
+            },
         }
 
     @run_after('setup')
     def set_num_cpus(self):
         if self.current_system.name == 'leibniz':
             self.num_cpus_per_task = 28
-        else:
+        elif self.current_system.name == 'vaughan':
             self.num_cpus_per_task = 32
+        elif self.current_system.name == 'hydra':
+            self.num_cpus_per_task = 40
+            self.job.options = ["--partition=skylake,skylake_mpi", "--exclusive"]
+        elif self.current_system.name == 'genius':
+            self.num_cpus_per_task = 36
+            self.modules = ['matlab']
+
         self.descr = f'Test a few typical Matlab operations, cpus={self.num_cpus_per_task }'
