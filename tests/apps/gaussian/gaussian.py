@@ -29,7 +29,9 @@ class GaussianBaseTest(rfm.RunOnlyRegressionTest):
 class GaussianCPUTest(GaussianBaseTest):
     def __init__(self):
         super().__init__()
-        self.valid_systems = ['leibniz:single-node', 'vaughan:single-node']
+        self.valid_systems = ['leibniz:single-node',
+                              'vaughan:single-node',
+                              'hydra:single-node']
         self.reference = {
             'leibniz:single-node': {
                 'time': (33.0, -0.5, 0.5, 'minutes/percentageOfMinute'),
@@ -45,10 +47,13 @@ class GaussianCPUTest(GaussianBaseTest):
     @run_after('setup')
     def set_num_cpus(self):
         if self.current_system.name == 'leibniz':
-    
             self.num_cpus_per_task = 28
-        else:
+        elif self.current_system.name == 'vaughan':
             self.num_cpus_per_task = 64
+        elif self.current_system.name == 'hydra':
+            self.num_cpus_per_task = 40
+            self.job.options = ["--partition=skylake,skylake_mpi", "--exclusive"]
+            self.modules = ['Gaussian/G16.B.01']
 
         self.executable = f'time g16 < mich-{self.current_system.name}.com'
     
