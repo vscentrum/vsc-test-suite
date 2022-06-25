@@ -145,4 +145,9 @@ tools = {
         'minver': '3.10.1',
         'modname': 'ReFrame',
     },
+    'Singularity':
+    {
+        'exe': 'singularity',
+        'minver': '3.8.7',
+    }
 }
