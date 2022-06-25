@@ -57,6 +57,7 @@ class Namd_SMP_CPUTest(NamdBaseTest):
 
     def __init__(self):
         self.tags.add('smp')
+        self.time_limit = '20m'
 
         self.valid_systems = ['leibniz:single-node',
                               'vaughan:single-node',
@@ -107,6 +108,7 @@ class Namd_NotSMP_CPUTest(NamdBaseTest):
     # NAMD notSMP CPU test
 
     def __init__(self):
+        self.time_limit = '20m'
 
         self.valid_systems = ['leibniz:single-node',
                               'vaughan:single-node',
