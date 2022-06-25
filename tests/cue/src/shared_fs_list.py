@@ -11,9 +11,8 @@ shared_fs = {
         'mount': '/user',
         'envar': 'VSC_HOME',
     },
-    'VSC_SCRATCH':
+    'APPS':
     {
-        'mount': '/scratch',
-        'envar': 'VSC_SCRATCH',
-    },
+        'mount': '/apps',
+    }
 }
