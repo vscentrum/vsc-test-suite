@@ -7,7 +7,7 @@ tools = {
         # 'exe': 'command'                  # mandatory:    the command itself
         # 'veropt': '-V'                    # optional:     default = '--version'
         # 'options': '--option -a 2>&1',    # optional:     desired options as postfix 
-        # 'minver': '93',                   # semi opti:    minimum version accepted, will skip VSCToolVersionTest if not present
+        # 'minver': '93',                   # semi opti:    minimum version accepted, will skip VSCToolVersionTest if not present.
         # 're': r'(?<=\) )\d+',             # optional:     custom regex for the command output if needed
         # 'modname': 'module'               # optional:     load the specified module.
         # 'not_as_module': Bool             # optional:     if True, modname is mandatory in order to work. Check the inexistence of the module. Read msg from lmod in stderr.
