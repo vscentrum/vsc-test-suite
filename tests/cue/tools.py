@@ -43,6 +43,7 @@ class VSCToolVersionTest(rfm.RunOnlyRegressionTest):
     num_tasks = 1
     num_tasks_per_node = 1
     num_cpus_per_task = 1
+    maintainers = ["smoors", "Lewih"]
     tags = {"vsc", "cue", "tools"}
 
     @run_after('init')
