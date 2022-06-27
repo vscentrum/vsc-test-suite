@@ -1,4 +1,4 @@
-standard_partitions_tool_test = ["*:local"]#, "*:single-node"]
+standard_partitions_tool_test = ["*:local", "*:single-node"]
 
 
 tools = {
@@ -18,7 +18,6 @@ tools = {
     {
         'exe': 'bash',
         'minver': '4.2',
-        'avail_on': ['*:local', '*:single-node']
     },
     'ksh':
     {
@@ -63,7 +62,6 @@ tools = {
     {
         'exe': 'emacs',
         'minver': '24',
-        'modname': 'Emacs',
     },
     'MidnightCommander':
     {
@@ -94,16 +92,19 @@ tools = {
     {
         'exe': 'rsync',
         'minver': '3.1.2',
+        'avail_on': ['*:local']
     },
     'wget':
     {
         'exe': 'wget',
         'minver': '1.14',
+        'avail_on': ['*:local']
     },
     'curl':
     {
         'exe': 'curl',
         'minver': '7.29',
+        'avail_on': ['*:local']
     },
     'singularity':
     {
@@ -140,12 +141,14 @@ tools = {
         'exe': 'smbclient',
         'minver': '4.10.16',
         'modname': 'Samba',
+        'avail_on': ['*:local']
     },
     'EasyBuild_module':
     {
         'exe': 'eb',
         'minver': '4.4.0',
         'modname': 'EasyBuild',
+        'avail_on': ['*:local']
     },
     'EasyBuild_not_on_image':
     {
@@ -162,7 +165,8 @@ tools = {
     {
         'exe': 'singularity',
         'modname': 'Singularity',
-        'not_as_module': True
+        'not_as_module': True,
+        'avail_on': ['*:local']
     }
 }
 
