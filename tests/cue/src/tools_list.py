@@ -34,7 +34,6 @@ tools = {
     'zsh':
     {
         'exe': 'zsh',
-        'modname': 'zsh',
         'minver': '5.0.2',
     },
     'screen':
