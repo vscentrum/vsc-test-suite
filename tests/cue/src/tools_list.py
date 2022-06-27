@@ -166,6 +166,20 @@ tools = {
         'modname': 'Singularity',
         'not_as_module': True,
         'avail_on': ['*:local']
-    }
+    },
+    'Davix':
+    {
+        'exe': 'davix-cp',
+        'minver': '0.7.6',
+        'avail_on': ['*:local']
+    },
+    'iRODS':
+    {
+        'exe': 'icd',
+        'minver': '4.2.8',
+        'avail_on': ['*:local'],
+        'veropt': '-h'
+    },
+
 }
 
