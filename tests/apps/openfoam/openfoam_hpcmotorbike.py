@@ -161,11 +161,18 @@ class OpenFOAMHPCMotorbikeTest(rfm.RunOnlyRegressionTest):
         # This test requires a few GB of temporary disk space. On most systems
         # $VSC_SCRATCH is a good candidate. On Hortense (dodrio) however,
         # quota on $VSC_SCRATCH is limited so we need another directory
-        # TODO Find a place on dodrio accessible to all users of
-        # vsc-test-suite, not only to Steven as is currently the case
         if self.cluster == 'dodrio':
             self.prerun_cmds = [
-                "export REFRAME_SCRATCHDIR=/dodrio/scratch/projects/largescale_003/steven"
+                "# Find an appropriate scratch dir accessible to current user",
+                "for ADMINGROUP in astaff badmin gadminforever l_sysadmin; do",
+                "    if [ -w ${VSC_SCRATCH_PROJECTS_BASE}/${ADMINGROUP} ]; then",
+                "        export REFRAME_SCRATCHDIR=${VSC_SCRATCH_PROJECTS_BASE}/${ADMINGROUP}",
+                "    fi",
+                "done",
+                "if [ -z ${REFRAME_SCRATCHDIR+x} ]; then",
+                "    echo 'Could not find appropriate scratch directory'",
+                "    exit 1",
+                "fi",
             ]
         else:
             self.prerun_cmds = [
