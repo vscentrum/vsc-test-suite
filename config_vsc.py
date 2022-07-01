@@ -199,6 +199,47 @@ site_configuration = {
                 },
             ]
         },
+        {
+            'name': 'leibniz',
+            'descr': 'VSC Tier-2 Leibniz',
+            'hostnames': ['login[1-2].leibniz'],
+            'modules_system': 'lmod',
+            'partitions': [
+                {
+                    'name': 'local',
+                    'scheduler': 'local',
+                    'modules': [],
+                    'access': [],
+                    'environs': ['builtin'],
+                    'descr': 'tests in the local node (no job)',
+                    'max_jobs': 1,
+                    'launcher': 'local',
+                },
+                {
+                    'name': 'single-node',
+                    'scheduler': 'slurm',
+                    'modules': [],
+                    'access': [],
+                    'environs': ['builtin'],
+                    'descr': 'single-node jobs',
+                    'max_jobs': 1,
+                    'launcher': 'local',
+                },
+                                {
+                    'name': 'mpi-job',
+                    'scheduler': 'slurm',
+                    'access': [],
+                    'environs': ['intel-2021a'],
+                    'descr': 'MPI jobs',
+                    'max_jobs': 1,
+                    # TODO Here we actually want to set vsc-mympirun, but since
+                    # this is a custom launcher not shipped with ReFrame, we
+                    # can only do this in the test itself after registering the
+                    # vsc-mympirun launcher
+                    'launcher': 'srun',
+                },
+            ]
+        },
     ],
     'environments': [
         {
@@ -212,7 +253,7 @@ site_configuration = {
             'cc': 'mpiicc',
             'cxx': 'mpiicpc',
             'ftn': 'mpiifort',
-            'target_systems': ['vaughan']
+            #'target_systems': ['vaughan', 'leibniz']
         },
     ],
     'general': [
