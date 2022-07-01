@@ -7,5 +7,5 @@ export RFM_PREFIX=$HOME/reframe
 export RFM_CHECK_SEARCH_RECURSIVE=true
 export RFM_SAVE_LOG_FILES=true
 
-reframe --run  "$@"
+reframe --run --exclude-tag=resource-intensive "$@"
 rm $(dirname $0)/reframe.out $(dirname $0)/reframe.log
