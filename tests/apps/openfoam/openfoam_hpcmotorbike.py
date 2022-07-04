@@ -124,8 +124,16 @@ class OpenFOAMHPCMotorbikeTest(rfm.RunOnlyRegressionTest):
             ))
         job_options = []
     elif cluster == 'vaughan':
-        num_tasks_per_node = 36
+        num_tasks_per_node = 64
         # On vaughan, git seems not available on compute nodes directly, so it
+        # has to be loaded as a module
+        modules_to_test = parameter((
+            ['OpenFOAM/8-intel-2020a', 'git'],
+            ))
+        job_options = []
+    elif cluster == 'leibniz':
+        num_tasks_per_node = 28
+        # On leibniz, git seems not available on compute nodes directly, so it
         # has to be loaded as a module
         modules_to_test = parameter((
             ['OpenFOAM/8-intel-2020a', 'git'],
@@ -148,6 +156,9 @@ class OpenFOAMHPCMotorbikeTest(rfm.RunOnlyRegressionTest):
         raise ValueError(f'VSC_INSTITUTE_CLUSTER={cluster} not supported')
     nnodes = parameter([1, 4])
     num_cpus_per_task = 1
+
+    def __init__(self):
+        self.tags.add(f"{self.nnodes}nodes")
 
     @run_after('setup')
     def set_resources(self):
