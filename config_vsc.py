@@ -229,9 +229,9 @@ site_configuration = {
                     'name': 'mpi-job',
                     'scheduler': 'slurm',
                     'access': [],
-                    'environs': ['intel-2021a'],
+                    'environs': ['intel-2021a', 'builtin'],
                     'descr': 'MPI jobs',
-                    'max_jobs': 1,
+                    'max_jobs': 4,
                     # TODO Here we actually want to set vsc-mympirun, but since
                     # this is a custom launcher not shipped with ReFrame, we
                     # can only do this in the test itself after registering the
