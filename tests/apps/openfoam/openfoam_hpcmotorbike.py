@@ -37,7 +37,7 @@ cluster     version         time 1 node     time 4 nodes        speedup
 genius      8-intel-2018a          6178             1629            3.8
 hydra       8-foss-2020a           6487             1599            4.1
 vaughan     8-intel-2020a          4888             ####            ###
-leibniz     8-intel-2020a          ####             2608            $$$
+leibniz     8-intel-2020a          10180            2608            3.9
 hortense    8-intel-2020b          3848              696            5.5
 '''
 
@@ -83,6 +83,10 @@ performance_references = {
         '*': default_performance_reference,
     },
 
+    (1, 'OpenFOAM/8-intel-2020a'): {
+        'leibniz:mpi-job': {'time': (10180.0, None, 0.1, 's')},
+        '*': default_performance_reference,
+    },
     (4, 'OpenFOAM/8-intel-2020a'): {
         'leibniz:mpi-job': {'time': (2608.0, None, 0.1, 's')},
         '*': default_performance_reference,
