@@ -36,7 +36,8 @@ cluster     version         time 1 node     time 4 nodes        speedup
 -----------------------------------------------------------------------
 genius      8-intel-2018a          6178             1629            3.8
 hydra       8-foss-2020a           6487             1599            4.1
-vaughan     8-intel-2020a          8490             2066            4.1
+vaughan     8-intel-2020a          4888             ####            ###
+leibniz     8-intel-2020a          ####             2608            $$$
 hortense    8-intel-2020b          3848              696            5.5
 '''
 
@@ -63,6 +64,7 @@ performance_references = {
         'genius:mpi-job': {'time': (1629.0, None, 0.1, 's')},
         '*': default_performance_reference,
     },
+
     (1, 'OpenFOAM/8-foss-2020a'): {
         'hydra:mpi-job': {'time': (6487.0, None, 0.1, 's')},
         '*': default_performance_reference,
@@ -71,14 +73,21 @@ performance_references = {
         'hydra:mpi-job': {'time': (1599.0, None, 0.1, 's')},
         '*': default_performance_reference,
     },
+
     (1, 'OpenFOAM/8-intel-2020a'): {
-        'vaughan:mpi-job': {'time': (8490.0, None, 0.1, 's')},
+        'vaughan:mpi-job': {'time': (4888.0, None, 0.1, 's')},
         '*': default_performance_reference,
     },
     (4, 'OpenFOAM/8-intel-2020a'): {
         'vaughan:mpi-job': {'time': (2066.0, None, 0.1, 's')},
         '*': default_performance_reference,
     },
+
+    (4, 'OpenFOAM/8-intel-2020a'): {
+        'leibniz:mpi-job': {'time': (2608.0, None, 0.1, 's')},
+        '*': default_performance_reference,
+    },
+
     (1, 'OpenFOAM/8-foss-2020b'): {
         # TODO This run on Hortense is very slow, probably because some built
         # in OpenFOAM script is used to launch a parallel run instead of
