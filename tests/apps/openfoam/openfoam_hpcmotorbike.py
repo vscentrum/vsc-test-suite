@@ -120,7 +120,7 @@ class OpenFOAMHPCMotorbikeTest(rfm.RunOnlyRegressionTest):
     maintainers = ['stevenvdb']
     time_limit = '12h'
     executable = './run_openfoam_hpc_benchmark.sh'
-    tags = {"vsc", "apps", "performance", "resource-intensive"}
+    tags = {"vsc", "apps", "performance", "resource-intensive", "openfoam"}
     sourcesdir = 'sources'
     keep_files = ['log.simpleFoam', 'log.checkMesh']
 
