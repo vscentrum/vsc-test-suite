@@ -42,7 +42,7 @@ class JuliaLinalgTest(JuliaLinalgBaseTest):
         }
         self.reference = {
             'leibniz:single-node': {
-                'dot': (0.20, None, 0.05, 'seconds'),
+                'dot': (0.30, None, 0.05, 'seconds'),
                 'cholesky': (0.22, None, 0.05, 'seconds'),
                 'lu': (0.28, None, 0.05, 'seconds'),
             },
@@ -54,7 +54,12 @@ class JuliaLinalgTest(JuliaLinalgBaseTest):
             'hortense:single-node': {
                 'dot': (0.44, None, 0.05, 'seconds'),
                 'cholesky': (0.47, None, 0.05, 'seconds'),
-                'lu': (0.47, None, 0.05, 'seconds'),
+                'lu': (0.49, None, 0.05, 'seconds'),
+            },
+            'hydra:single-node': {
+                'dot': (0.14, None, 0.05, 'seconds'),
+                'cholesky': (0.21, None, 0.05, 'seconds'),
+                'lu': (0.30, None, 0.05, 'seconds'),
             },
         }
 
