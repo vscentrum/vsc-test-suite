@@ -12,6 +12,7 @@ class JuliaLinalgBaseTest(rfm.RunOnlyRegressionTest):
         self.executable_opts = ['linalg.jl']
         self.tags = {'apps', 'julia', '1nodes'}
         self.maintainers = ['Lewih']
+        self.time_limit = '10m'
 
 
 @rfm.simple_test
