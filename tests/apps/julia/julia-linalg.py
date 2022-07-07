@@ -24,8 +24,6 @@ class JuliaLinalgTest(JuliaLinalgBaseTest):
         self.num_cpus_per_task = 20
         self.tags.add('performance')
         self.executable_opts += [str(self.num_cpus_per_task)]
-        self.variables = {"JULIA_DEPOT_PATH": "$VSC_SCRATCH/rfm_julia_$SLURM_JOBID"}
-        self.postrun_cmds = ['rm -rf $VSC_SCRATCH/rfm_julia_$SLURM_JOBID']
 
         self.perf_patterns = {
             'dot': sn.extractsingle(
@@ -64,12 +62,20 @@ class JuliaLinalgTest(JuliaLinalgBaseTest):
         }
 
     @run_after('setup')
+    def set_var_postrun(self):
+        if self.current_system.name == "genius":
+            self.variables = {"JULIA_DEPOT_PATH": "$VSC_SCRATCH/rfm_julia_$PBS_JOBID"}
+            self.postrun_cmds = ['rm -rf $VSC_SCRATCH/rfm_julia_$PBS_JOBID']
+        else:
+            self.variables = {"JULIA_DEPOT_PATH": "$VSC_SCRATCH/rfm_julia_$SLURM_JOBID"}
+            self.postrun_cmds = ['rm -rf $VSC_SCRATCH/rfm_julia_$SLURM_JOBID']
+
+    @run_after('setup')
     def set_options(self):
         if self.current_system.name == "hydra":
             self.job.options = ["--partition=skylake,skylake_mpi", "--exclusive"]
         elif self.current_system.name == "hortense":
             self.job.options = ["--exclusive"]
-
 
     @run_after('setup')
     def set_num_cpus(self):
