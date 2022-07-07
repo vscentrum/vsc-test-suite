@@ -45,7 +45,7 @@ class VSCSharedFSMode(rfm.RunOnlyRegressionTest):
     num_tasks = 1
     num_tasks_per_node = 1
     num_cpus_per_task = 1
-    tags = {"vsc", "cue"}
+    tags = {"vsc", "cue", "fs"}
 
     @run_after('init')
     def set_param(self):
@@ -66,7 +66,11 @@ class VSCSharedFSMode(rfm.RunOnlyRegressionTest):
 @rfm.simple_test
 class VSCSharedFSAccountDir(rfm.RunOnlyRegressionTest):
     descr = "test account directory "
-    fs = parameter(shared_fs.keys())
+    targets = []
+    for x in shared_fs.keys():
+        if 'envar' in shared_fs[x].keys():
+            targets += [x]
+    fs = parameter(targets)
     valid_systems = ["*:local", "*:single-node"]
     valid_prog_environs = ["builtin"]
     maintainers = ['rverschoren']
@@ -74,7 +78,7 @@ class VSCSharedFSAccountDir(rfm.RunOnlyRegressionTest):
     num_tasks = 1
     num_tasks_per_node = 1
     num_cpus_per_task = 1
-    tags = {"vsc", "cue"}
+    tags = {"vsc", "cue", "fs"}
 
     @run_after('init')
     def set_param(self):
