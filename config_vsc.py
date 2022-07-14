@@ -252,6 +252,10 @@ site_configuration = {
             'ftn': 'mpiifort',
             #'target_systems': ['vaughan', 'leibniz']
         },
+        {
+            'name': 'nvidia',
+            'modules': ['CUDA']
+        },
     ],
     'general': [
         {
