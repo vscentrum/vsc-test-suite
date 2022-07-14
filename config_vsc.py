@@ -204,6 +204,16 @@ site_configuration = {
                     'descr': 'Nvidia node',
                     'max_jobs': 1,
                     'launcher': 'local',
+                    'resources': [
+                        {
+                        'name': 'gpu',
+                        'options': ['--gres=gpu:{num_gpus}'],
+                        },
+                        {
+                        'name': 'partition',
+                        'options': ['-p ampere_gpu']
+                        }
+                    ]
                 }
             ]
         },

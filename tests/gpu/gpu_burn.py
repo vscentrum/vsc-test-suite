@@ -8,14 +8,14 @@ class GPU_Burn_nvidia(rfm.RunOnlyRegressionTest):
     valid_systems = ["vaughan:nvidia"]
     valid_prog_environs = ["CUDA"]
     variables = {'CUDAPATH': '/apps/antwerpen/rome/centos8/CUDA/11.6.2'}
-    time_limit = '20m'
-    num_tasks = 1
-    num_tasks_per_node = 1
-    num_cpus_per_task = 64
+    time_limit = '10m'
     prebuild_cmds = ['git clone https://github.com/wilicc/gpu-burn.git']
     prerun_cmds = ['cd gpu-burn', 'make']
-    executable = './gpu_burn 10'
+    executable = './gpu_burn 5'
     tags = {"antwerp", "gpu", "gpuburn"}
+
+    def __init__(self):
+        self.extra_resources = {'gpu': {'num_gpus': '4'}}
 
     @sanity_function
     def assert_job(self):
