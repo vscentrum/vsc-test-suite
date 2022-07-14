@@ -1,6 +1,8 @@
 import grp
 import os
 
+from py import builtin
+
 # use 'info' to log to syslog
 syslog_level = 'warning'
 
@@ -194,6 +196,15 @@ site_configuration = {
                     # vsc-mympirun launcher
                     'launcher': 'srun',
                 },
+                {
+                    'name': 'nvidia',
+                    'scheduler': 'slurm',
+                    'access': [],
+                    'environs': ['CUDA', 'builtin'],
+                    'descr': 'Nvidia node',
+                    'max_jobs': 1,
+                    'launcher': 'local',
+                }
             ]
         },
         {
@@ -253,8 +264,10 @@ site_configuration = {
             #'target_systems': ['vaughan', 'leibniz']
         },
         {
-            'name': 'nvidia',
-            'modules': ['CUDA']
+            'name': 'CUDA',
+            'modules': ['CUDA'],
+            'cc': 'nvcc', 
+            'cxx': 'nvcc', 
         },
     ],
     'general': [
