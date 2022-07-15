@@ -5,18 +5,54 @@ import reframe.utility.sanity as sn
 @rfm.simple_test
 class GPU_Burn_nvidia(rfm.RunOnlyRegressionTest):
     descr = "GPU burn test on nvidia node"
-    valid_systems = ["vaughan:nvidia"]
+    valid_systems = ["*:nvidia"]
     valid_prog_environs = ["CUDA"]
-    variables = {'CUDAPATH': '/apps/antwerpen/rome/centos8/CUDA/11.6.2'}
+    modules = ['git']
+    variables = {'CUDAPATH': '$EBROOTCUDA'}
     time_limit = '10m'
-    prebuild_cmds = ['git clone https://github.com/wilicc/gpu-burn.git']
-    prerun_cmds = ['cd gpu-burn', 'make']
-    executable = './gpu_burn 5'
-    tags = {"antwerp", "gpu", "gpuburn"}
+    prerun_cmds = ['git clone https://github.com/wilicc/gpu-burn.git', 'cd gpu-burn', 'make']
+    executable = './gpu_burn 20'
+    tags = {"antwerp", "gpu", "burn"}
+    num_devices = 0
+    num_tasks = -1 # flexible test
+    num_tasks_per_node = 1
+    num_gpus_per_node = 0
+    reference = {
+        'vaughan:nvidia': {
+            'device0': (17339.0, -0.05, 0.05, 'Gflop/s'),
+            'device1': (17336.0, -0.05, 0.05, 'Gflop/s'),
+            'device2': (17340.0, -0.05, 0.05, 'Gflop/s'),
+            'device3': (17335.0, -0.05, 0.05, 'Gflop/s'),
+        },
+        'leibniz:nvidia': {
+            'device0': (7412.0, -0.05, 0.05, 'Gflop/s'),
+            'device1': (7412.0, -0.05, 0.05, 'Gflop/s'),
+        }
+    }
 
     def __init__(self):
-        self.extra_resources = {'gpu': {'num_gpus': '4'}}
+        if self.current_system.name == 'vaughan':
+            self.num_devices = 4
+        if self.current_system.name == 'leibniz':
+            self.num_devices = 2
+        
+        self.extra_resources = {'gpu': {'num_gpus': str(self.num_devices)}}
+        self.descr = f'Nvidia gpu burn test on {self.current_system.name} with {self.num_devices} gpus'
 
     @sanity_function
     def assert_job(self):
         return sn.and_(sn.assert_found(r'OK', self.stdout), sn.assert_not_found(r'FAULTY', self.stdout))
+
+    @performance_function('Gflop/s')
+    def get_gflops(self, device=0):
+        return sn.extractsingle(r'\((?P<gflops>\S+) Gflop/s\)', self.stdout, 'gflops', float, item=(-device-1))
+
+    @run_before('performance')
+    def set_perf_variables(self):
+        '''Build the dictionary with all the performance variables.'''
+        self.perf_variables = {}
+
+        counter = 0
+        for x in range(self.num_devices):
+            self.perf_variables[f'device{counter}'] = self.get_gflops(device=self.num_devices-counter)
+            counter += 1

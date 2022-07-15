@@ -199,20 +199,16 @@ site_configuration = {
                 {
                     'name': 'nvidia',
                     'scheduler': 'slurm',
-                    'access': [],
+                    'access': ['-p ampere_gpu'],
                     'environs': ['CUDA', 'builtin'],
-                    'descr': 'Nvidia node',
+                    'descr': 'Nvidia ampere node',
                     'max_jobs': 1,
-                    'launcher': 'local',
+                    'launcher': 'srun',
                     'resources': [
                         {
                         'name': 'gpu',
                         'options': ['--gres=gpu:{num_gpus}'],
                         },
-                        {
-                        'name': 'partition',
-                        'options': ['-p ampere_gpu']
-                        }
                     ]
                 }
             ]
@@ -256,6 +252,21 @@ site_configuration = {
                     # vsc-mympirun launcher
                     'launcher': 'srun',
                 },
+                {
+                    'name': 'nvidia',
+                    'scheduler': 'slurm',
+                    'access': ['-p pascal_gpu'],
+                    'environs': ['CUDA', 'builtin'],
+                    'descr': 'Nvidia pascal nodes',
+                    'max_jobs': 2,
+                    'launcher': 'srun',
+                    'resources': [
+                        {
+                        'name': 'gpu',
+                        'options': ['--gres=gpu:{num_gpus}'],
+                        },
+                    ]
+                }
             ]
         },
     ],
