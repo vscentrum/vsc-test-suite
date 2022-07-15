@@ -14,9 +14,7 @@ class GPU_Burn_nvidia(rfm.RunOnlyRegressionTest):
     executable = '--output=rfm_GPUBURN_nvidia_node-%N.out ./gpu_burn 20'
     tags = {"antwerp", "gpu", "burn"}
     num_devices = 0
-    num_tasks = -1 # flexible test
     num_tasks_per_node = 1
-    num_gpus_per_node = 0
     reference = {
         'vaughan:nvidia': {
             'device0': (17339.0, -0.05, 0.05, 'Gflop/s'),
@@ -36,8 +34,10 @@ class GPU_Burn_nvidia(rfm.RunOnlyRegressionTest):
     def set_options(self):
         if self.current_system.name == 'vaughan':
             self.num_devices = 4
+            self.num_tasks = 1
         if self.current_system.name == 'leibniz':
             self.num_devices = 2
+            self.num_tasks = 2
         
         self.extra_resources = {'gpu': {'num_gpus': str(self.num_devices)}}
         self.descr = f'Nvidia gpu burn test on {self.current_system.name} with {self.num_devices} gpus'
