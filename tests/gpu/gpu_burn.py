@@ -11,7 +11,7 @@ class GPU_Burn_nvidia(rfm.RunOnlyRegressionTest):
     variables = {'CUDAPATH': '$EBROOTCUDA'}
     time_limit = '10m'
     prerun_cmds = ['git clone https://github.com/wilicc/gpu-burn.git', 'cd gpu-burn', 'make']
-    executable = './gpu_burn 20'
+    executable = '--output=rfm_GPUBURN_nvidia_node-%N.out ./gpu_burn 20'
     tags = {"antwerp", "gpu", "burn"}
     num_devices = 0
     num_tasks = -1 # flexible test
@@ -27,10 +27,13 @@ class GPU_Burn_nvidia(rfm.RunOnlyRegressionTest):
         'leibniz:nvidia': {
             'device0': (7412.0, -0.05, 0.05, 'Gflop/s'),
             'device1': (7412.0, -0.05, 0.05, 'Gflop/s'),
+            'device2': (7412.0, -0.05, 0.05, 'Gflop/s'),
+            'device4': (7412.0, -0.05, 0.05, 'Gflop/s'),
         }
     }
 
-    def __init__(self):
+    @run_before('run')
+    def set_options(self):
         if self.current_system.name == 'vaughan':
             self.num_devices = 4
         if self.current_system.name == 'leibniz':
@@ -41,11 +44,16 @@ class GPU_Burn_nvidia(rfm.RunOnlyRegressionTest):
 
     @sanity_function
     def assert_job(self):
-        return sn.and_(sn.assert_found(r'OK', self.stdout), sn.assert_not_found(r'FAULTY', self.stdout))
+        result = True
+        for n in sorted(self.job.nodelist):
+            node = n.split('.')[0]
+            result = sn.and_(sn.and_(sn.assert_found(r'OK', f'gpu-burn/rfm_GPUBURN_nvidia_node-{node}.out'), sn.assert_not_found(r'FAULTY', f'gpu-burn/rfm_GPUBURN_nvidia_node-{node}.out')), result)
+
+        return result
 
     @performance_function('Gflop/s')
-    def get_gflops(self, device=0):
-        return sn.extractsingle(r'\((?P<gflops>\S+) Gflop/s\)', self.stdout, 'gflops', float, item=(-device-1))
+    def get_gflops(self, device=0, node=None):
+        return sn.extractsingle(r'\((?P<gflops>\S+) Gflop/s\)', f'gpu-burn/rfm_GPUBURN_nvidia_node-{node}.out', 'gflops', float, item=(-device-1))
 
     @run_before('performance')
     def set_perf_variables(self):
@@ -53,6 +61,8 @@ class GPU_Burn_nvidia(rfm.RunOnlyRegressionTest):
         self.perf_variables = {}
 
         counter = 0
-        for x in range(self.num_devices):
-            self.perf_variables[f'device{counter}'] = self.get_gflops(device=self.num_devices-counter)
-            counter += 1
+        for n in sorted(self.job.nodelist):
+            node =n.split('.')[0]
+            for x in range(self.num_devices):
+                self.perf_variables[f'device{counter}'] = self.get_gflops(device=self.num_devices-counter, node=node)
+                counter += 1
