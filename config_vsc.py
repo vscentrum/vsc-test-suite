@@ -1,5 +1,6 @@
 import grp
 import os
+import time
 
 # use 'info' to log to syslog
 syslog_level = 'warning'
@@ -303,4 +304,20 @@ site_configuration = {
             ],
         }
     ],
+    'modes': [
+        {
+            'name': 'basic',
+            'options': [
+                '--exec-policy=async',
+                '--strict',
+                '--output=/apps/antwerpen/reframe/logs/output/',
+                '--perflogdir=/apps/antwerpen/reframe/logs/',
+                '--stage=$VSC_SCRATCH/stage/',
+                f'--report-file=/apps/antwerpen/reframe/logs/$VSC_INSTITUTE_CLUSTER-{time.time()}-report.json',
+                '--save-log-files',
+                '--tag=basic',
+                '--timestamp=%F_%H-%M-%S'
+         ]
+        }
+    ]
 }
