@@ -267,7 +267,7 @@ site_configuration = {
             'handlers': [
                 {
                     'type': 'file',
-                    'name': 'reframe.log',
+                    'name': '$VSC_INSTITUTE_CLUSTER-reframe.log',
                     'level': 'debug',
                     'format': '[%(asctime)s] %(levelname)s: %(check_name)s: %(message)s',  # noqa: E501
                     'append': True,
@@ -280,7 +280,7 @@ site_configuration = {
                 },
                 {
                     'type': 'file',
-                    'name': 'reframe.out',
+                    'name': '$VSC_INSTITUTE_CLUSTER-reframe.out',
                     'level': 'info',
                     'format': '%(message)s',
                     'append': True,
