@@ -17,16 +17,16 @@ class GPU_Burn_nvidia(rfm.RunOnlyRegressionTest):
     num_tasks_per_node = 1
     reference = {
         'vaughan:nvidia': {
-            'device0': (17339.0, -0.05, 0.05, 'Gflop/s'),
-            'device1': (17336.0, -0.05, 0.05, 'Gflop/s'),
-            'device2': (17340.0, -0.05, 0.05, 'Gflop/s'),
-            'device3': (17335.0, -0.05, 0.05, 'Gflop/s'),
+            'device0_nvam1': (17339.0, -0.05, 0.05, 'Gflop/s'),
+            'device1_nvam1': (17336.0, -0.05, 0.05, 'Gflop/s'),
+            'device2_nvam1': (17340.0, -0.05, 0.05, 'Gflop/s'),
+            'device3_nvam1': (17335.0, -0.05, 0.05, 'Gflop/s'),
         },
         'leibniz:nvidia': {
-            'device0': (7412.0, -0.05, 0.05, 'Gflop/s'),
-            'device1': (7412.0, -0.05, 0.05, 'Gflop/s'),
-            'device2': (7412.0, -0.05, 0.05, 'Gflop/s'),
-            'device4': (7412.0, -0.05, 0.05, 'Gflop/s'),
+            'device0_nvpa1': (7412.0, -0.05, 0.05, 'Gflop/s'),
+            'device1_nvpa1': (7412.0, -0.05, 0.05, 'Gflop/s'),
+            'device0_nvpa2': (7412.0, -0.05, 0.05, 'Gflop/s'),
+            'device1_nvpa2': (7412.0, -0.05, 0.05, 'Gflop/s'),
         }
     }
 
@@ -60,9 +60,9 @@ class GPU_Burn_nvidia(rfm.RunOnlyRegressionTest):
         '''Build the dictionary with all the performance variables.'''
         self.perf_variables = {}
 
-        counter = 0
-        for n in sorted(self.job.nodelist):
+        for n in self.job.nodelist:
             node =n.split('.')[0]
+            device = 0
             for x in range(self.num_devices):
-                self.perf_variables[f'device{counter}'] = self.get_gflops(device=self.num_devices-counter, node=node)
-                counter += 1
+                self.perf_variables[f'device{device}_{node}'] = self.get_gflops(device=self.num_devices-device, node=node)
+                device += 1
