@@ -5,7 +5,7 @@ import time
 # use 'info' to log to syslog
 syslog_level = 'warning'
 
-perf_logging_format = 'reframe: ' + '|'.join(
+perf_logging_format = '|'.join(
     [
         'username=%(osuser)s',
         'version=%(version)s',
@@ -13,6 +13,7 @@ perf_logging_format = 'reframe: ' + '|'.join(
         'system=%(check_system)s',
         'partition=%(check_partition)s',
         'environ=%(check_environ)s',
+        'nodelist=%(check_job_nodelist)s',
         'num_tasks=%(check_num_tasks)s',
         'num_cpus_per_task=%(check_num_cpus_per_task)s',
         'num_tasks_per_node=%(check_num_tasks_per_node)s',
@@ -21,6 +22,7 @@ perf_logging_format = 'reframe: ' + '|'.join(
         'perf_var=%(check_perf_var)s',
         'perf_value=%(check_perf_value)s',
         'unit=%(check_perf_unit)s',
+        'description=%(check_descr)s',
     ]
 )
 
@@ -294,13 +296,6 @@ site_configuration = {
                     'format': '%(check_job_completion_time)s ' + perf_logging_format,
                     'append': True,
                 },
-                {
-                    'type': 'syslog',
-                    'address': '/dev/log',
-                    'level': syslog_level,
-                    'format': perf_logging_format,
-                    'append': True,
-                },
             ],
         }
     ],
@@ -313,9 +308,9 @@ site_configuration = {
                 '--output=/apps/antwerpen/reframe/logs/output/',
                 '--perflogdir=/apps/antwerpen/reframe/logs/',
                 '--stage=$VSC_SCRATCH/stage/',
-                f'--report-file=/apps/antwerpen/reframe/logs/$VSC_INSTITUTE_CLUSTER-{time.time()}-report.json',
+                '--report-file=/apps/antwerpen/reframe/logs/$VSC_INSTITUTE_CLUSTER-report.json',
                 '--save-log-files',
-                '--tag=basic',
+                '--tag=python', 
          ],
         },
         {
@@ -326,7 +321,7 @@ site_configuration = {
                 '--output=/apps/antwerpen/reframe/logs/output/',
                 '--perflogdir=/apps/antwerpen/reframe/logs/',
                 '--stage=$VSC_SCRATCH/stage/',
-                f'--report-file=/apps/antwerpen/reframe/logs/$VSC_INSTITUTE_CLUSTER-{time.time()}-report.json',
+                '--report-file=/apps/antwerpen/reframe/logs/$VSC_INSTITUTE_CLUSTER-report.json',
                 '--save-log-files',
                 '-T intensive', '-T flexible'
          ]
