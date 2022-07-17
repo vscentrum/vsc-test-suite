@@ -317,6 +317,8 @@ site_configuration = {
                 '--save-log-files',
                 '--tag=basic',
          ],
+        },
+        {
             'name': 'standard',
             'options': [
                 '--exec-policy=async',
