@@ -316,6 +316,17 @@ site_configuration = {
                 f'--report-file=/apps/antwerpen/reframe/logs/$VSC_INSTITUTE_CLUSTER-{time.time()}-report.json',
                 '--save-log-files',
                 '--tag=basic',
+         ],
+            'name': 'standard',
+            'options': [
+                '--exec-policy=async',
+                '--strict',
+                '--output=/apps/antwerpen/reframe/logs/output/',
+                '--perflogdir=/apps/antwerpen/reframe/logs/',
+                '--stage=$VSC_SCRATCH/stage/',
+                f'--report-file=/apps/antwerpen/reframe/logs/$VSC_INSTITUTE_CLUSTER-{time.time()}-report.json',
+                '--save-log-files',
+                '-T intensive', '-T flexible'
          ]
         }
     ]
