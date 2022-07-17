@@ -268,7 +268,7 @@ site_configuration = {
                 {
                     'type': 'file',
                     'name': '$VSC_INSTITUTE_CLUSTER-reframe.log',
-                    'level': 'debug',
+                    'level': 'debug2',
                     'format': '[%(asctime)s] %(levelname)s: %(check_name)s: %(message)s',  # noqa: E501
                     'append': True,
                 },
