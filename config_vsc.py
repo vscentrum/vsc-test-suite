@@ -270,7 +270,7 @@ site_configuration = {
                     'name': 'reframe.log',
                     'level': 'debug',
                     'format': '[%(asctime)s] %(levelname)s: %(check_name)s: %(message)s',  # noqa: E501
-                    'append': False,
+                    'append': True,
                 },
                 {
                     'type': 'stream',
@@ -283,7 +283,7 @@ site_configuration = {
                     'name': 'reframe.out',
                     'level': 'info',
                     'format': '%(message)s',
-                    'append': False,
+                    'append': True,
                 },
             ],
             'handlers_perflog': [
@@ -316,7 +316,6 @@ site_configuration = {
                 f'--report-file=/apps/antwerpen/reframe/logs/$VSC_INSTITUTE_CLUSTER-{time.time()}-report.json',
                 '--save-log-files',
                 '--tag=basic',
-                '--timestamp=%F_%H-%M-%S'
          ]
         }
     ]

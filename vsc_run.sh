@@ -1,4 +1,4 @@
-echo "VSC Institute run file\n"
+echo "VSC Institute run file"
 
 if [[ $@ != *"--mode="* ]]; then
   echo "Specify an execution mode via --mode=mymode"
