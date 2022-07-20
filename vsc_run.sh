@@ -18,3 +18,4 @@ rm $(dirname $0)/*.out $(dirname $0)/*.log
 report_dir=/apps/antwerpen/reframe/logs/reports
 
 cat "$report_dir/last-$VSC_INSTITUTE_CLUSTER.json" >> "$report_dir/$VSC_INSTITUTE_CLUSTER.json"
+echo -e '' >> "$report_dir/$VSC_INSTITUTE_CLUSTER.json"

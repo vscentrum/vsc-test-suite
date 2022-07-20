@@ -329,7 +329,7 @@ site_configuration = {
             'handlers_perflog': [
                 {
                     'type': 'filelog',
-                    'prefix': '%(check_system)s/%(check_partition)s',
+                    'prefix': 'performance/%(check_system)s/%(check_partition)s',
                     'level': 'info',
                     'format': '%(check_job_completion_time)s ' + perf_logging_format,
                     'append': True,
