@@ -7,26 +7,26 @@ from py import builtin
 # use 'info' to log to syslog
 syslog_level = 'warning'
 
-perf_logging_format = '|'.join(
-    [
-        'username=%(osuser)s',
-        'version=%(version)s',
-        'name=%(check_name)s',
-        'system=%(check_system)s',
-        'partition=%(check_partition)s',
-        'environ=%(check_environ)s',
-        'nodelist=%(check_job_nodelist)s',
-        'num_tasks=%(check_num_tasks)s',
-        'num_cpus_per_task=%(check_num_cpus_per_task)s',
-        'num_tasks_per_node=%(check_num_tasks_per_node)s',
-        'modules=%(check_modules)s',
-        'jobid=%(check_jobid)s',
-        'perf_var=%(check_perf_var)s',
-        'perf_value=%(check_perf_value)s',
-        'unit=%(check_perf_unit)s',
-        'description=%(check_descr)s',
+perf_logging_format = [
+        "{'username': '%(osuser)s'",
+        "'version': '%(version)s'",
+        "'name': '%(check_name)s'",
+        "'system': '%(check_system)s'",
+        "'partition': '%(check_partition)s'",
+        "'environ': '%(check_environ)s'",
+        "'nodelist': '%(check_job_nodelist)s'",
+        "'num_tasks': '%(check_num_tasks)s'",
+        "'num_cpus_per_task': '%(check_num_cpus_per_task)s'",
+        "'num_tasks_per_node': '%(check_num_tasks_per_node)s'",
+        "'modules': '%(check_modules)s'",
+        "'jobid': '%(check_jobid)s'",
+        "'perf_var': '%(check_perf_var)s'",
+        "'perf_value': '%(check_perf_value)s'",
+        "'unit': '%(check_perf_unit)s'",
+        "'description': '%(check_descr)s'}",
     ]
-)
+
+logging_format = perf_logging_format + ["'message': '%(message)s'", "'time': '%(asctime)s'"]
 
 # To run jobs on the kul cluster, you need to be a member of the following
 # vsc group
@@ -309,7 +309,7 @@ site_configuration = {
                     'type': 'file',
                     'name': '/apps/antwerpen/reframe/logs/output/$VSC_INSTITUTE_CLUSTER-reframe.log',
                     'level': 'debug2',
-                    'format': '[%(asctime)s] %(levelname)s: %(check_name)s: %(message)s',  # noqa: E501
+                    'format': ', '.join(logging_format),  # noqa: E501
                     'append': True,
                 },
                 {
@@ -331,7 +331,7 @@ site_configuration = {
                     'type': 'filelog',
                     'prefix': 'performance/%(check_system)s/%(check_partition)s',
                     'level': 'info',
-                    'format': '%(check_job_completion_time)s ' + perf_logging_format,
+                    'format': ', '.join(perf_logging_format),
                     'append': True,
                 },
             ],
@@ -373,9 +373,9 @@ site_configuration = {
                 '--perflogdir=/apps/antwerpen/reframe/logs/',
                 '--stage=$VSC_SCRATCH/stage/',
                 '--report-file=/apps/antwerpen/reframe/logs/reports/last-$VSC_INSTITUTE_CLUSTER.json',
-                '-T intensive', '-T flexible',
+                '--exclude-tag=gpu',
                 '--compress-report',
-         ]
+         ],
         }
     ]
 }
