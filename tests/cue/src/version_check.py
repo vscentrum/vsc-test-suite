@@ -23,9 +23,6 @@ cmd = f"{tool['exe']} {ver_opt} {options}"
 out = subprocess.run([cmd],shell=True, stdout=subprocess.PIPE)
 out = out.stdout.decode('utf-8')
 
-out = [line for line in out.split('\n') if line.strip() != '']
-out = out[0]
-
 try:
     regular = tool['re']
 except:
