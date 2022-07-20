@@ -1,6 +1,8 @@
 import grp
 import os
 
+from py import builtin
+
 # use 'info' to log to syslog
 syslog_level = 'warning'
 
@@ -194,6 +196,21 @@ site_configuration = {
                     # vsc-mympirun launcher
                     'launcher': 'srun',
                 },
+                {
+                    'name': 'nvidia',
+                    'scheduler': 'slurm',
+                    'access': ['-p ampere_gpu'],
+                    'environs': ['CUDA', 'builtin'],
+                    'descr': 'Nvidia ampere node',
+                    'max_jobs': 1,
+                    'launcher': 'srun',
+                    'resources': [
+                        {
+                        'name': 'gpu',
+                        'options': ['--gres=gpu:{num_gpus}'],
+                        },
+                    ]
+                }
             ]
         },
         {
@@ -235,6 +252,21 @@ site_configuration = {
                     # vsc-mympirun launcher
                     'launcher': 'srun',
                 },
+                {
+                    'name': 'nvidia',
+                    'scheduler': 'slurm',
+                    'access': ['-p pascal_gpu'],
+                    'environs': ['CUDA', 'builtin'],
+                    'descr': 'Nvidia pascal nodes',
+                    'max_jobs': 2,
+                    'launcher': 'srun',
+                    'resources': [
+                        {
+                        'name': 'gpu',
+                        'options': ['--gres=gpu:{num_gpus}'],
+                        },
+                    ]
+                }
             ]
         },
     ],
@@ -251,6 +283,12 @@ site_configuration = {
             'cxx': 'mpiicpc',
             'ftn': 'mpiifort',
             #'target_systems': ['vaughan', 'leibniz']
+        },
+        {
+            'name': 'CUDA',
+            'modules': ['CUDA'],
+            'cc': 'nvcc', 
+            'cxx': 'nvcc', 
         },
     ],
     'general': [
