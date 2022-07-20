@@ -314,7 +314,7 @@ site_configuration = {
          ],
         },
         {
-            'name': 'perftest',
+            'name': 'numpy',
             'options': [
                 '--exec-policy=async',
                 '--strict',
