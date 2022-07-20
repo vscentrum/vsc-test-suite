@@ -308,8 +308,9 @@ site_configuration = {
                 '--output=/apps/antwerpen/reframe/logs/output/',
                 '--perflogdir=/apps/antwerpen/reframe/logs/',
                 '--stage=$VSC_SCRATCH/stage/',
-                '--report-file=/apps/antwerpen/reframe/logs/$VSC_INSTITUTE_CLUSTER-report.json',
-                '--tag=basic', 
+                '--report-file=/apps/antwerpen/reframe/logs/reports/last-$VSC_INSTITUTE_CLUSTER.json',
+                '--tag=basic',
+                '--compress-report',
          ],
         },
         {
@@ -320,8 +321,9 @@ site_configuration = {
                 '--output=/apps/antwerpen/reframe/logs/output/',
                 '--perflogdir=/apps/antwerpen/reframe/logs/',
                 '--stage=$VSC_SCRATCH/stage/',
-                '--report-file=/apps/antwerpen/reframe/logs/$VSC_INSTITUTE_CLUSTER-report.json',
-                '--tag=python', 
+                '--report-file=/apps/antwerpen/reframe/logs/reports/last-$VSC_INSTITUTE_CLUSTER.json',
+                '--tag=python',
+                '--compress-report',
          ],
         },
         {
@@ -332,8 +334,9 @@ site_configuration = {
                 '--output=/apps/antwerpen/reframe/logs/output/',
                 '--perflogdir=/apps/antwerpen/reframe/logs/',
                 '--stage=$VSC_SCRATCH/stage/',
-                '--report-file=/apps/antwerpen/reframe/logs/$VSC_INSTITUTE_CLUSTER-report.json',
-                '-T intensive', '-T flexible'
+                '--report-file=/apps/antwerpen/reframe/logs/reports/last-$VSC_INSTITUTE_CLUSTER.json',
+                '-T intensive', '-T flexible',
+                '--compress-report',
          ]
         }
     ]
