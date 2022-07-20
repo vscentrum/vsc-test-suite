@@ -23,10 +23,11 @@ perf_logging_format = [
         "'perf_var': '%(check_perf_var)s'",
         "'perf_value': '%(check_perf_value)s'",
         "'unit': '%(check_perf_unit)s'",
-        "'description': '%(check_descr)s'}",
+        "'description': '%(check_descr)s'",
     ]
 
-logging_format = perf_logging_format + ["'message': '%(message)s'", "'time': '%(asctime)s'"]
+logging_format = perf_logging_format + ["'message': '%(message)s'", "'time': '%(asctime)s'}"]
+perf_logging_format[-1] += '}'
 
 # To run jobs on the kul cluster, you need to be a member of the following
 # vsc group
