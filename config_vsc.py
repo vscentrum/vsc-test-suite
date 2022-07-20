@@ -269,7 +269,7 @@ site_configuration = {
             'handlers': [
                 {
                     'type': 'file',
-                    'name': '$VSC_INSTITUTE_CLUSTER-reframe.log',
+                    'name': '/apps/antwerpen/reframe/logs/output/$VSC_INSTITUTE_CLUSTER-reframe.log',
                     'level': 'debug2',
                     'format': '[%(asctime)s] %(levelname)s: %(check_name)s: %(message)s',  # noqa: E501
                     'append': True,
@@ -282,12 +282,12 @@ site_configuration = {
                 },
                 {
                     'type': 'file',
-                    'name': '$VSC_INSTITUTE_CLUSTER-reframe.out',
+                    'name': '/apps/antwerpen/reframe/logs/output/$VSC_INSTITUTE_CLUSTER-reframe.out',
                     'level': 'info',
                     'format': '%(message)s',
                     'append': True,
                 },
-            ],
+                        ],
             'handlers_perflog': [
                 {
                     'type': 'filelog',
@@ -309,7 +309,18 @@ site_configuration = {
                 '--perflogdir=/apps/antwerpen/reframe/logs/',
                 '--stage=$VSC_SCRATCH/stage/',
                 '--report-file=/apps/antwerpen/reframe/logs/$VSC_INSTITUTE_CLUSTER-report.json',
-                '--save-log-files',
+                '--tag=basic', 
+         ],
+        },
+        {
+            'name': 'perftest',
+            'options': [
+                '--exec-policy=async',
+                '--strict',
+                '--output=/apps/antwerpen/reframe/logs/output/',
+                '--perflogdir=/apps/antwerpen/reframe/logs/',
+                '--stage=$VSC_SCRATCH/stage/',
+                '--report-file=/apps/antwerpen/reframe/logs/$VSC_INSTITUTE_CLUSTER-report.json',
                 '--tag=python', 
          ],
         },
@@ -322,7 +333,6 @@ site_configuration = {
                 '--perflogdir=/apps/antwerpen/reframe/logs/',
                 '--stage=$VSC_SCRATCH/stage/',
                 '--report-file=/apps/antwerpen/reframe/logs/$VSC_INSTITUTE_CLUSTER-report.json',
-                '--save-log-files',
                 '-T intensive', '-T flexible'
          ]
         }

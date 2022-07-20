@@ -13,5 +13,4 @@ export RFM_CHECK_SEARCH_PATH=$(dirname $0)/tests
 export RFM_CHECK_SEARCH_RECURSIVE=true
 
 reframe --run  "$@"
-
-
+rm $(dirname $0)/*.out $(dirname $0)/*.log
