@@ -12,7 +12,7 @@ class GPU_Burn_nvidia(rfm.RunOnlyRegressionTest):
     time_limit = '10m'
     prerun_cmds = ['git clone https://github.com/wilicc/gpu-burn.git', 'cd gpu-burn', 'make']
     executable = '--output=rfm_GPUBURN_nvidia_node-%N.out ./gpu_burn 20'
-    tags = {"antwerp", "gpu", "burn", "performance"}
+    tags = {"gpu", "burn", "performance"}
     num_devices = 0
     num_tasks_per_node = 1
     reference = {
