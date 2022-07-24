@@ -8,25 +8,25 @@ from py import builtin
 syslog_level = 'warning'
 
 perf_logging_format = [
-        "{'username': '%(osuser)s'",
-        "'version': '%(version)s'",
-        "'name': '%(check_name)s'",
-        "'system': '%(check_system)s'",
-        "'partition': '%(check_partition)s'",
-        "'environ': '%(check_environ)s'",
-        "'nodelist': '%(check_job_nodelist)s'",
-        "'num_tasks': '%(check_num_tasks)s'",
-        "'num_cpus_per_task': '%(check_num_cpus_per_task)s'",
-        "'num_tasks_per_node': '%(check_num_tasks_per_node)s'",
-        "'modules': '%(check_modules)s'",
-        "'jobid': '%(check_jobid)s'",
-        "'perf_var': '%(check_perf_var)s'",
-        "'perf_value': '%(check_perf_value)s'",
-        "'unit': '%(check_perf_unit)s'",
-        "'description': '%(check_descr)s'",
+        '{"username": "%(osuser)s"',
+        '"version": "%(version)s"',
+        '"name": "%(check_name)s"',
+        '"system": "%(check_system)s"',
+        '"partition": "%(check_partition)s"',
+        '"environ": "%(check_environ)s"',
+        '"nodelist": "%(check_job_nodelist)s"',
+        '"num_tasks": "%(check_num_tasks)s"',
+        '"num_cpus_per_task": "%(check_num_cpus_per_task)s"',
+        '"num_tasks_per_node": "%(check_num_tasks_per_node)s"',
+        '"modules": "%(check_modules)s"',
+        '"jobid": "%(check_jobid)s"',
+        '"perf_var": "%(check_perf_var)s"',
+        '"perf_value": "%(check_perf_value)s"',
+        '"unit": "%(check_perf_unit)s"',
+        '"description": "%(check_descr)s"',
     ]
 
-logging_format = perf_logging_format + ["'message': '%(message)s'", "'time': '%(asctime)s'}"]
+logging_format = perf_logging_format + ['"message": "%(message)s"', '"time": "%(asctime)s"}']
 perf_logging_format[-1] += '}'
 
 # To run jobs on the kul cluster, you need to be a member of the following
