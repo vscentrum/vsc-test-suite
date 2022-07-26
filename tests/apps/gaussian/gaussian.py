@@ -53,7 +53,7 @@ class GaussianCPUTest(GaussianBaseTest):
         elif self.current_system.name == 'hydra':
             self.num_cpus_per_task = 40
             self.job.options = ["--partition=skylake,skylake_mpi", "--exclusive"]
-            self.modules = ['Gaussian/G16.B.01']
+            self.modules = ['Gaussian/G16.A.03-intel-2017b']
 
         self.executable = f'time g16 < mich-{self.current_system.name}.com'
     
