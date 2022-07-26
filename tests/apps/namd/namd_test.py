@@ -96,11 +96,11 @@ class Namd_SMP_CPUTest(NamdBaseTest):
             self.modules = ['NAMD/2.14-verbs-smp']
         elif self.current_system.name == 'genius':
             self.num_cpus_per_task = 36
-            self.modules = ['NAMD-prebuilt/2.13-intel-2018a-verbs-smp']
+            self.modules = ['NAMD/2.14-foss-2019b-mpi']
 
         self.create_nodelist()
 
-        self.executable = f'charmrun ++p {self.num_cpus_per_task*self.num_tasks} ++ppn {self.num_cpus_per_task} ++nodelist mynodes $EBROOTNAMD/namd2 {configFile}/{configFile}.namd'
+        self.executable = f'charmrun +p {self.num_cpus_per_task*self.num_tasks} $EBROOTNAMD/namd2 {configFile}/{configFile}.namd'
 
 
 @rfm.simple_test
@@ -160,12 +160,12 @@ class Namd_NotSMP_CPUTest(NamdBaseTest):
             launcher = 'mpi'
         elif self.current_system.name == 'genius':
             self.num_cpus_per_task = 36
-            self.modules = ['NAMD-prebuilt/2.13-intel-2018a-verbs']
+            self.modules = ['NAMD/2.14-foss-2019b-mpi']
 
         self.create_nodelist()
 
         # select launcher
         if launcher == 'charm':
-            self.executable = f'charmrun ++p {self.num_cpus_per_task*self.num_tasks} ++nodelist mynodes $EBROOTNAMD/namd2 {configFile}/{configFile}.namd'
+            self.executable = f'charmrun +p {self.num_cpus_per_task*self.num_tasks} $EBROOTNAMD/namd2 {configFile}/{configFile}.namd'
         if launcher == 'mpi':
             self.executable = f'srun $EBROOTNAMD/namd2 {configFile}/{configFile}.namd'
