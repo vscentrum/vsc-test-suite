@@ -154,6 +154,7 @@ class Namd_NotSMP_CPUTest(NamdBaseTest):
             self.modules = ['NAMD/2.14-verbs']
         elif self.current_system.name == 'hydra':
             self.num_tasks = 40 * self.num_tasks
+            self.num_tasks_per_node = 40
             self.modules = ['NAMD/2.14-foss-2019b-mpi']
             self.job.options = ["--partition=skylake_mpi",
                                 "--exclusive", f"--nodes={int(self.num_nodes)}"]
