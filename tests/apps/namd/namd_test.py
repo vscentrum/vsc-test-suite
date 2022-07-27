@@ -122,17 +122,17 @@ class Namd_NotSMP_CPUTest(NamdBaseTest):
             '1': {
                 'leibniz:single-node': {'days_ns': (0.347779, None, 0.05, 'days/ns')},
                 'vaughan:single-node': {'days_ns': (0.188093, None, 0.05, 'days/ns')},
-                'hydra:single-node': {'days_ns': (0.207591, None, 0.05, 'days/ns')},
+                'hydra:single-node': {'days_ns': (0.202701, None, 0.05, 'days/ns')},
             },
             '2': {
                 'leibniz:single-node': {'days_ns': (0.1782715, None, 0.05, 'days/ns')},
                 'vaughan:single-node': {'days_ns': (0.09856985, None, 0.05, 'days/ns')},
-                'hydra:single-node': {'days_ns': (0.1704705, None, 0.05, 'days/ns')},
+                'hydra:single-node': {'days_ns': (0.1099565, None, 0.05, 'days/ns')},
             },
             '4': {
                 'leibniz:single-node': {'days_ns': (1.05726, None, 0.05, 'days/ns')},
                 'vaughan:single-node': {'days_ns': (0.5438339, None, 0.05, 'days/ns')},
-                'hydra:single-node': {'days_ns': (4.24083, None, 0.05, 'days/ns')},
+                'hydra:single-node': {'days_ns': (0.5427335, None, 0.05, 'days/ns')},
             },
         }
         self.reference = self.scale_reference[self.num_nodes]
