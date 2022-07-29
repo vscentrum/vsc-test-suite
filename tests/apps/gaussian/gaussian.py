@@ -34,7 +34,7 @@ class GaussianCPUTest(GaussianBaseTest):
                               'hydra:single-node']
         self.reference = {
             'leibniz:single-node': {
-                'time': (33.0, -0.5, 0.5, 'minutes'),
+                'time': (33.0, -0.05, 0.05, 'minutes'),
 
             },
             'vaughan:single-node': {
