@@ -1,6 +1,4 @@
-%cpu=0-39
-%mem=129GB
-%chk=mich-again.chk
+%chk=file-again.chk
 # B3LYP 6-31G(d) opt freq 
 
 dummy line

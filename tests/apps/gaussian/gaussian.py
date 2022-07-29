@@ -52,14 +52,17 @@ class GaussianCPUTest(GaussianBaseTest):
     def set_num_cpus(self):
         if self.current_system.name == 'leibniz':
             self.num_cpus_per_task = 28
+            self.memory = 109
         elif self.current_system.name == 'vaughan':
             self.num_cpus_per_task = 64
+            self.memory = 229
         elif self.current_system.name == 'hydra':
             self.num_cpus_per_task = 40
             self.job.options = ["--partition=skylake,skylake_mpi", "--exclusive"]
             self.modules = ['Gaussian/G16.A.03-intel-2017b']
+            self.memory = 129
 
-        self.executable = f'time g16 < mich-{self.current_system.name}.com'
+        self.executable = f'time g16 -c="0-{self.num_cpus_per_task-1}" -m={self.memory}GB < input-file.com'
     
         self.descr = f'Single Node Gaussian Test, cpus{self.num_cpus_per_task}'
 
