@@ -43,6 +43,7 @@ class NamdBaseTest(rfm.RunOnlyRegressionTest):
         # scheduler commands
         if self.current_system.name == 'genius':
             # torque prerun commands
+            # not used, mantained for reference
             self.prerun_cmds += ['echo Number of nodes: $PBS_NP',
                                  'for node in `cat $PBS_NODEFILE`; do echo host $node >>mynodes; done']
         else:
@@ -60,8 +61,7 @@ class Namd_SMP_CPUTest(NamdBaseTest):
         self.time_limit = '20m'
 
         self.valid_systems = ['leibniz:single-node',
-                              'vaughan:single-node',
-                              'genius:single-node', ]
+                              'vaughan:single-node']
         self.valid_prog_environs = ['builtin']
         super().__init__('cpu')
 
@@ -94,13 +94,10 @@ class Namd_SMP_CPUTest(NamdBaseTest):
         elif self.current_system.name == 'vaughan':
             self.num_cpus_per_task = 64
             self.modules = ['NAMD/2.14-verbs-smp']
-        elif self.current_system.name == 'genius':
-            self.num_cpus_per_task = 36
-            self.modules = ['NAMD/2.14-foss-2019b-mpi']
 
         self.create_nodelist()
 
-        self.executable = f'charmrun +p {self.num_cpus_per_task*self.num_tasks} $EBROOTNAMD/namd2 {configFile}/{configFile}.namd'
+        self.executable = f'charmrun ++p {self.num_cpus_per_task*self.num_tasks} ++ppn {self.num_cpus_per_task} ++nodelist mynodes $EBROOTNAMD/namd2 {configFile}/{configFile}.namd'
 
 
 @rfm.simple_test
@@ -123,16 +120,19 @@ class Namd_NotSMP_CPUTest(NamdBaseTest):
                 'leibniz:single-node': {'days_ns': (0.347779, None, 0.05, 'days/ns')},
                 'vaughan:single-node': {'days_ns': (0.188093, None, 0.05, 'days/ns')},
                 'hydra:single-node': {'days_ns': (0.202701, None, 0.05, 'days/ns')},
+                'genius:single-node': {'days_ns': (0.210896, None, 0.05, 'days/ns')},
             },
             '2': {
                 'leibniz:single-node': {'days_ns': (0.1782715, None, 0.05, 'days/ns')},
                 'vaughan:single-node': {'days_ns': (0.09856985, None, 0.05, 'days/ns')},
                 'hydra:single-node': {'days_ns': (0.1099565, None, 0.05, 'days/ns')},
+                'genius:single-node': {'days_ns': (0.1151855, None, 0.05, 'days/ns')},
             },
             '4': {
                 'leibniz:single-node': {'days_ns': (1.05726, None, 0.05, 'days/ns')},
                 'vaughan:single-node': {'days_ns': (0.5438339, None, 0.05, 'days/ns')},
                 'hydra:single-node': {'days_ns': (0.5427335, None, 0.05, 'days/ns')},
+                'genius:single-node': {'days_ns': (0.565824, None, 0.05, 'days/ns')},
             },
         }
         self.reference = self.scale_reference[self.num_nodes]
@@ -143,15 +143,15 @@ class Namd_NotSMP_CPUTest(NamdBaseTest):
 
         configFile = self.download_material()
 
-        launcher = 'charm'
-
         # VSC specific config
         if self.current_system.name == 'leibniz':
             self.num_cpus_per_task = 28
             self.modules = ['NAMD/2.14-verbs']
+            launcher = 'charm_antwerp'
         elif self.current_system.name == 'vaughan':
             self.num_cpus_per_task = 64
             self.modules = ['NAMD/2.14-verbs']
+            launcher = 'charm_antwerp'
         elif self.current_system.name == 'hydra':
             self.num_tasks = 40 * self.num_tasks
             self.num_tasks_per_node = 40
@@ -162,10 +162,12 @@ class Namd_NotSMP_CPUTest(NamdBaseTest):
         elif self.current_system.name == 'genius':
             self.num_cpus_per_task = 36
             self.modules = ['NAMD/2.14-foss-2019b-mpi']
-
-        self.create_nodelist()
+            launcher = 'charm'
 
         # select launcher
+        if launcher == 'charm_antwerp':
+            self.create_nodelist()
+            self.executable = f'charmrun ++p {self.num_cpus_per_task*self.num_tasks} ++nodelist mynodes $EBROOTNAMD/namd2 {configFile}/{configFile}.namd'
         if launcher == 'charm':
             self.executable = f'charmrun +p {self.num_cpus_per_task*self.num_tasks} $EBROOTNAMD/namd2 {configFile}/{configFile}.namd'
         if launcher == 'mpi':
