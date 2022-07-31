@@ -29,6 +29,11 @@ perf_logging_format = 'reframe: ' + '|'.join(
 # vsc group
 kul_account_string_tier2 = '-A lpt2_vsc_test_suite'
 
+# By default, not all installed modules are visible on the genius cluster
+genius_modulepath = []
+for version in ['2018a', '2019b', '2021a']:
+    genius_modulepath.append(f'/apps/leuven/skylake/{version}/modules/all')
+
 # Specify hortense access flag in order to run jobs
 # Flag is selected according to user group
 hortense_access_flag = ''
@@ -134,6 +139,7 @@ site_configuration = {
                     'descr': 'tests in the local node (no job)',
                     'max_jobs': 1,
                     'launcher': 'local',
+                    'variables': [['MODULEPATH', ':'.join(genius_modulepath)]],
                 },
                 {
                     'name': 'single-node',
@@ -144,6 +150,7 @@ site_configuration = {
                     'descr': 'single-node jobs',
                     'max_jobs': 1,
                     'launcher': 'local',
+                    'variables': [['MODULEPATH', ':'.join(genius_modulepath)]],
                 },
                 {
                     'name': 'mpi-job',
@@ -153,7 +160,7 @@ site_configuration = {
                     'descr': 'MPI jobs',
                     'max_jobs': 1,
                     'launcher': 'mpirun',
-                    'variables': [['MODULEPATH', '/apps/leuven/skylake/2021a/modules/all']],
+                    'variables': [['MODULEPATH', ':'.join(genius_modulepath)]],
                 },
             ]
         },
