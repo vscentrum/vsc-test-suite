@@ -69,7 +69,7 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
                 'eigendec': (5.20, None, 0.10, 'seconds'),
                 'inv': (0.24, None, 0.10, 'seconds'),
             },
-            'hortense:single-node': {
+            'dodrio:single-node': {
                 'dot': (0.62, None, 0.10, 'seconds'),
                 'svd': (1.38, None, 0.10, 'seconds'),
                 'cholesky': (0.4, None, 0.10, 'seconds'),
@@ -89,6 +89,6 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
         if self.current_system.name == "hydra":
             self.modules = ["SciPy-bundle/2021.10-foss-2021b"]
             self.job.options = ["--partition=skylake,skylake_mpi", "--exclusive"]
-        elif self.current_system.name == "hortense":
+        elif self.current_system.name == "dodrio":
             self.modules = ["SciPy-bundle/2021.10-foss-2021b"]
             self.job.options = ["--exclusive"]
