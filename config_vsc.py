@@ -365,6 +365,10 @@ site_configuration = {
         {
             'name': 'standard',
             'options': standard_mode_options + ['--exclude-tag=gpu'],
+        },
+        {
+            'name': 'gpu',
+            'options': standard_mode_options + ['--tag=gpu'],
         }
     ]
 }
