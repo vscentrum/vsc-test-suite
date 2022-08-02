@@ -32,6 +32,7 @@ perf_logging_format = [
         '"perf_value": "%(check_perf_value)s"',
         '"unit": "%(check_perf_unit)s"',
         '"description": "%(check_descr)s"',
+        '"end_time": "%(check_job_completion_time)s"',
     ]
 
 logging_format = perf_logging_format + ['"message": "%(message)s"', '"time": "%(asctime)s"}']
