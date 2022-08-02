@@ -18,31 +18,31 @@ scrape_configs:
       - localhost
     labels:
       job: vaughan-log
-      __path__: /apps/antwerpen/reframe/logs/output/vaughan-reframe.log
+      __path__: /apps/antwerpen/reframe/logs/log/vaughan-reframe.log
  
   - targets:
       - localhost
     labels:
       job: leibniz-log
-      __path__: /apps/antwerpen/reframe/logs/output/leibniz-reframe.log
+      __path__: /apps/antwerpen/reframe/logs/log/leibniz-reframe.log
 
   - targets:
       - localhost
     labels:
       job: dodrio-log
-      __path__: /apps/antwerpen/reframe/logs/output/dodrio-reframe.log
+      __path__: /apps/antwerpen/reframe/logs/log/dodrio-reframe.log
 
   - targets:
       - localhost
     labels:
       job: hydra-log
-      __path__: /apps/antwerpen/reframe/logs/output/hydra-reframe.log
+      __path__: /apps/antwerpen/reframe/logs/log/hydra-reframe.log
 
   - targets:
       - localhost
     labels:
       job: genius-log
-      __path__: /apps/antwerpen/reframe/logs/output/genius-reframe.log
+      __path__: /apps/antwerpen/reframe/logs/log/genius-reframe.log
 
 
 
