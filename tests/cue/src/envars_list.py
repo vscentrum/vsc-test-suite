@@ -44,7 +44,7 @@ envars = {
     },
     'VSC_OS_LOCAL':
     {
-        'exe': ['print(os.environ["VSC_OS_LOCAL"] in ["CO7", "RHEL8", "centos8", "centos7"])'],
+        'exe': ['print(os.environ["VSC_OS_LOCAL"] in ["CO7", "RHEL8", "centos8", "centos7", "rocky8"])'],
     },
     'VSC_SCRATCH_NODE':
     {
