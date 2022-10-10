@@ -50,7 +50,7 @@ class JuliaLinalgTest(JuliaLinalgBaseTest):
                 'cholesky': (0.57, None, 0.1, 'seconds'),
                 'lu': (0.31, None, 0.1, 'seconds'),
             },
-            'hortense:single-node': {
+            'dodrio:single-node': {
                 'dot': (0.44, None, 0.1, 'seconds'),
                 'cholesky': (0.47, None, 0.1, 'seconds'),
                 'lu': (0.49, None, 0.1, 'seconds'),
@@ -80,7 +80,7 @@ class JuliaLinalgTest(JuliaLinalgBaseTest):
     def set_options(self):
         if self.current_system.name == "hydra":
             self.job.options = ["--partition=skylake,skylake_mpi", "--exclusive"]
-        elif self.current_system.name == "hortense":
+        elif self.current_system.name == "dodrio":
             self.job.options = ["--exclusive"]
 
     @run_after('setup')

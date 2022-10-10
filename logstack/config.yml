@@ -1,0 +1,148 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /etc/promtail/positions.yaml
+
+clients:
+  - url: http://service.hpc.uantwerpen.be:3100/loki/api/v1/push
+
+scrape_configs:
+- job_name: logs
+  static_configs:
+
+
+
+  - targets:
+      - localhost
+    labels:
+      job: vaughan-log
+      __path__: /apps/antwerpen/reframe/logs/log/vaughan-reframe.log
+ 
+  - targets:
+      - localhost
+    labels:
+      job: leibniz-log
+      __path__: /apps/antwerpen/reframe/logs/log/leibniz-reframe.log
+
+  - targets:
+      - localhost
+    labels:
+      job: dodrio-log
+      __path__: /apps/antwerpen/reframe/logs/log/dodrio-reframe.log
+
+  - targets:
+      - localhost
+    labels:
+      job: hydra-log
+      __path__: /apps/antwerpen/reframe/logs/log/hydra-reframe.log
+
+  - targets:
+      - localhost
+    labels:
+      job: genius-log
+      __path__: /apps/antwerpen/reframe/logs/log/genius-reframe.log
+
+
+
+
+  - targets:
+      - localhost
+    labels:
+      job: vaughan-report
+      __path__: /apps/antwerpen/reframe/logs/reports/vaughan.json
+ 
+  - targets:
+      - localhost
+    labels:
+      job: leibniz-report
+      __path__: /apps/antwerpen/reframe/logs/reports/leibniz.json
+
+  - targets:
+      - localhost
+    labels:
+      job: dodrio-report
+      __path__: /apps/antwerpen/reframe/logs/reports/dodrio.json
+
+  - targets:
+      - localhost
+    labels:
+      job: hydra-report
+      __path__: /apps/antwerpen/reframe/logs/reports/hydra.json
+
+  - targets:
+      - localhost
+    labels:
+      job: genius-report
+      __path__: /apps/antwerpen/reframe/logs/reports/genius.json
+
+
+  - targets:
+      - localhost
+    labels:
+      job: vaughan-perf
+      __path__: /apps/antwerpen/reframe/logs/performance/vaughan/*/*
+ 
+  - targets:
+      - localhost
+    labels:
+      job: leibniz-perf
+      __path__: /apps/antwerpen/reframe/logs/performance/leibniz/*/*
+
+  - targets:
+      - localhost
+    labels:
+      job: dodrio-perf
+      __path__: /apps/antwerpen/reframe/logs/performance/dodrio/*/*
+
+  - targets:
+      - localhost
+    labels:
+      job: hydra-perf
+      __path__: /apps/antwerpen/reframe/logs/performance/hydra/*/*
+
+  - targets:
+      - localhost
+    labels:
+      job: genius-perf
+      __path__: /apps/antwerpen/reframe/logs/performance/genius/*/*
+
+  pipeline_stages:
+  - match:
+      selector: '{job=~".*-log"}'
+      stages:
+      - multiline:
+          firstline: '^{"username'
+          max_lines: 3000
+          max_wait_time: 3s
+      - replace:
+          expression: "(\\n)"
+          replace: ""
+      - regex:
+          expression: '(?P<before>.*)"message": "(?P<content>.*)", "time"(?P<tail>.*)'
+      - replace:
+          source: "content"
+          expression: '(")'
+          replace: ""
+      - template:
+          source: output_msg
+          template: '{{ .before }}"message": "{{ .content }} ", "time"{{ .tail }}'
+      - output:
+          source: output_msg
+      - json:
+          expressions:
+            testname: name
+      - labels:
+          testname:
+
+  - match:
+      selector: '{job=~".*-perf"}'
+      stages:
+      - json:
+          expressions:
+            perfname: name
+            perfvar: perf_var
+      - labels:
+          perfname:
+          perfvar:

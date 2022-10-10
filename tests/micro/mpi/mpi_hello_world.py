@@ -36,7 +36,7 @@ class MPIHelloWorldTest(rfm.RegressionTest):
 
     @run_before('run')
     def set_launcher_to_mympirun(self):
-        if self.current_system.name in ['hortense',]:
+        if self.current_system.name in ['dodrio',]:
             self.modules += ['vsc-mympirun']
             self.job.launcher = getlauncher('vsc-mympirun')()
 
