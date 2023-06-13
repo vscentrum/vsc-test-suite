@@ -1,5 +1,4 @@
 import reframe as rfm
-from reframe.core.decorators import run_after
 import reframe.utility.sanity as sn
 
 
@@ -81,7 +80,7 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
     @run_after('setup')
     def set_num_cpus(self):
         self.num_cpus_per_task = 6
-        self.variables = {
+        self.env_vars = {
             'OMP_NUM_THREADS': str(self.num_cpus_per_task),
             'MKL_NUM_THREADS': str(self.num_cpus_per_task)
         }

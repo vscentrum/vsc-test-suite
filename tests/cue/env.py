@@ -23,7 +23,8 @@ class VSCEnvTest(rfm.RunOnlyRegressionTest):
     def set_param(self):
         self.descr += self.envar
         exe = envars[self.envar]['exe']
-        self.executable = "python3 -c 'import os;{}'".format('\n'.join(exe))
+        # load Reframe to expose archspec in python path 
+        self.executable = "ml load ReFrame; python3 -c 'import os;{}'".format('\n'.join(exe))
 
     @sanity_function
     def assert_env(self):
