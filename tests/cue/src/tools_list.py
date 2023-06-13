@@ -105,10 +105,10 @@ tools = {
         'minver': '7.29',
         'avail_on': ['*:local']
     },
-    'singularity':
+    'apptainer':
     {
-        'exe': 'singularity',
-        'minver': '3.8.7',
+        'exe': 'apptainer',
+        'minver': '1.1.8',
     },
     'lmod':
     {
