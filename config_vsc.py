@@ -1,11 +1,9 @@
 import grp
 import os
-import time
-
 from py import builtin
 
 
-standard_mode_options = [       
+antwerpen_mode_options = [       
     '--exec-policy=async',
     '--output=/apps/antwerpen/reframe/logs/output/',
     '--perflogdir=/apps/antwerpen/reframe/logs/',
@@ -47,13 +45,13 @@ genius_modulepath = []
 for version in ['2018a', '2019b', '2021a']:
     genius_modulepath.append(f'/apps/leuven/skylake/{version}/modules/all')
 
-# Specify dodrio access flag in order to run jobs
+# Specify hortense access flag in order to run jobs
 # Flag is selected according to user group
-dodrio_access_flag = ''
+hortense_access_flag = ''
 groups = [grp.getgrgid(x).gr_name for x in os.getgroups()]
 for admingroup in ['astaff', 'badmin', 'gadminforever', 'l_sysadmin']:
     if admingroup in groups:
-        dodrio_access_flag = f'-A {admingroup}'
+        hortense_access_flag = f'-A {admingroup}'
         break
 
 # Site Configuration
@@ -97,8 +95,8 @@ site_configuration = {
             ]
         },
         {
-            'name': 'dodrio',
-            'descr': 'VSC Tier-1 dodrio',
+            'name': 'hortense',
+            'descr': 'VSC Tier-1 hortense',
             'hostnames': ['login.*.dodrio.os'],
             'modules_system': 'lmod',
             'partitions': [
@@ -116,7 +114,7 @@ site_configuration = {
                     'name': 'single-node',
                     'scheduler': 'slurm',
                     'modules': [],
-                    'access': [dodrio_access_flag],
+                    'access': [hortense_access_flag],
                     'environs': ['builtin'],
                     'descr': 'single-node jobs',
                     'max_jobs': 1,
@@ -125,7 +123,7 @@ site_configuration = {
                 {
                     'name': 'mpi-job',
                     'scheduler': 'slurm',
-                    'access': [dodrio_access_flag],
+                    'access': [hortense_access_flag],
                     'environs': ['foss-2021a'],
                     'descr': 'MPI jobs',
                     'max_jobs': 1,
@@ -347,8 +345,8 @@ site_configuration = {
     ],
     'modes': [
         {
-            'name': 'standard',
-            'options': standard_mode_options,
+            'name': 'UAstandard',
+            'options': antwerpen_mode_options,
         },
     ]
 }
