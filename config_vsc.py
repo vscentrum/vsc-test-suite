@@ -1,29 +1,40 @@
 import grp
 import os
-
 from py import builtin
 
-# use 'info' to log to syslog
-syslog_level = 'warning'
 
-perf_logging_format = 'reframe: ' + '|'.join(
-    [
-        'username=%(osuser)s',
-        'version=%(version)s',
-        'name=%(check_name)s',
-        'system=%(check_system)s',
-        'partition=%(check_partition)s',
-        'environ=%(check_environ)s',
-        'num_tasks=%(check_num_tasks)s',
-        'num_cpus_per_task=%(check_num_cpus_per_task)s',
-        'num_tasks_per_node=%(check_num_tasks_per_node)s',
-        'modules=%(check_modules)s',
-        'jobid=%(check_jobid)s',
-        'perf_var=%(check_perf_var)s',
-        'perf_value=%(check_perf_value)s',
-        'unit=%(check_perf_unit)s',
+antwerpen_mode_options = [       
+    '--exec-policy=async',
+    '--output=/apps/antwerpen/reframe/logs/output/',
+    '--perflogdir=/apps/antwerpen/reframe/logs/',
+    '--stage=/apps/antwerpen/reframe/logs/stage/',
+    '--report-file=/apps/antwerpen/reframe/logs/reports/last-$VSC_INSTITUTE_CLUSTER.json',
+    '--compress-report',
+    '--nocolor']
+
+perf_logging_format = [
+        '{"username": "%(osuser)s"',
+        '"version": "%(version)s"',
+        '"name": "%(check_name)s"',
+        '"system": "%(check_system)s"',
+        '"partition": "%(check_partition)s"',
+        '"environ": "%(check_environ)s"',
+        '"nodelist": "%(check_job_nodelist)s"',
+        '"num_tasks": "%(check_num_tasks)s"',
+        '"num_cpus_per_task": "%(check_num_cpus_per_task)s"',
+        '"num_tasks_per_node": "%(check_num_tasks_per_node)s"',
+        '"modules": "%(check_modules)s"',
+        '"jobid": "%(check_jobid)s"',
+        '"perf_var": "%(check_perf_var)s"',
+        '"perf_value": "%(check_perf_value)s"',
+        '"unit": "%(check_perf_unit)s"',
+        '"description": "%(check_descr)s"',
+        '"job_completion_time": "%(check_job_completion_time)s"',
+        '"check_result": "%(check_result)s"',
     ]
-)
+
+logging_format = perf_logging_format + ['"message": "%(message)s"', '"time": "%(asctime)s"}']
+perf_logging_format[-1] += '}'
 
 # To run jobs on the kul cluster, you need to be a member of the following
 # vsc group
@@ -57,7 +68,7 @@ site_configuration = {
                     'scheduler': 'local',
                     'modules': [],
                     'access': [],
-                    'environs': ['builtin'],
+                    'environs': ['standard'],
                     'descr': 'tests in the local node (no job)',
                     'max_jobs': 1,
                     'launcher': 'local',
@@ -67,7 +78,7 @@ site_configuration = {
                     'scheduler': 'slurm',
                     'modules': [],
                     'access': [],
-                    'environs': ['builtin'],
+                    'environs': ['standard'],
                     'descr': 'single-node jobs',
                     'max_jobs': 1,
                     'launcher': 'local',
@@ -85,7 +96,7 @@ site_configuration = {
         },
         {
             'name': 'hortense',
-            'descr': 'VSC Tier-1 Hortense',
+            'descr': 'VSC Tier-1 hortense',
             'hostnames': ['login.*.dodrio.os'],
             'modules_system': 'lmod',
             'partitions': [
@@ -94,7 +105,7 @@ site_configuration = {
                     'scheduler': 'local',
                     'modules': [],
                     'access': [],
-                    'environs': ['builtin'],
+                    'environs': ['standard'],
                     'descr': 'tests in the local node (no job)',
                     'max_jobs': 1,
                     'launcher': 'local',
@@ -104,7 +115,7 @@ site_configuration = {
                     'scheduler': 'slurm',
                     'modules': [],
                     'access': [hortense_access_flag],
-                    'environs': ['builtin'],
+                    'environs': ['standard'],
                     'descr': 'single-node jobs',
                     'max_jobs': 1,
                     'launcher': 'local',
@@ -135,22 +146,22 @@ site_configuration = {
                     'scheduler': 'local',
                     'modules': [],
                     'access': [],
-                    'environs': ['builtin'],
+                    'environs': ['standard'],
                     'descr': 'tests in the local node (no job)',
                     'max_jobs': 1,
                     'launcher': 'local',
-                    'variables': [['MODULEPATH', ':'.join(genius_modulepath)]],
+                    'env_vars': [['MODULEPATH', ':'.join(genius_modulepath)]],
                 },
                 {
                     'name': 'single-node',
                     'scheduler': 'torque',
                     'modules': [],
                     'access': [kul_account_string_tier2],
-                    'environs': ['builtin'],
+                    'environs': ['standard'],
                     'descr': 'single-node jobs',
                     'max_jobs': 1,
                     'launcher': 'local',
-                    'variables': [['MODULEPATH', ':'.join(genius_modulepath)]],
+                    'env_vars': [['MODULEPATH', ':'.join(genius_modulepath)]],
                 },
                 {
                     'name': 'mpi-job',
@@ -160,7 +171,7 @@ site_configuration = {
                     'descr': 'MPI jobs',
                     'max_jobs': 1,
                     'launcher': 'mpirun',
-                    'variables': [['MODULEPATH', ':'.join(genius_modulepath)]],
+                    'env_vars': [['MODULEPATH', ':'.join(genius_modulepath)]],
                 },
             ]
         },
@@ -175,7 +186,7 @@ site_configuration = {
                     'scheduler': 'local',
                     'modules': [],
                     'access': [],
-                    'environs': ['builtin'],
+                    'environs': ['standard'],
                     'descr': 'tests in the local node (no job)',
                     'max_jobs': 1,
                     'launcher': 'local',
@@ -185,7 +196,7 @@ site_configuration = {
                     'scheduler': 'slurm',
                     'modules': [],
                     'access': [],
-                    'environs': ['builtin'],
+                    'environs': ['standard'],
                     'descr': 'single-node jobs',
                     'max_jobs': 1,
                     'launcher': 'local',
@@ -207,7 +218,7 @@ site_configuration = {
                     'name': 'nvidia',
                     'scheduler': 'slurm',
                     'access': ['-p ampere_gpu'],
-                    'environs': ['CUDA', 'builtin'],
+                    'environs': ['CUDA', 'standard'],
                     'descr': 'Nvidia ampere node',
                     'max_jobs': 1,
                     'launcher': 'srun',
@@ -231,7 +242,7 @@ site_configuration = {
                     'scheduler': 'local',
                     'modules': [],
                     'access': [],
-                    'environs': ['builtin'],
+                    'environs': ['standard'],
                     'descr': 'tests in the local node (no job)',
                     'max_jobs': 1,
                     'launcher': 'local',
@@ -241,7 +252,7 @@ site_configuration = {
                     'scheduler': 'slurm',
                     'modules': [],
                     'access': [],
-                    'environs': ['builtin'],
+                    'environs': ['standard'],
                     'descr': 'single-node jobs',
                     'max_jobs': 1,
                     'launcher': 'local',
@@ -263,7 +274,7 @@ site_configuration = {
                     'name': 'nvidia',
                     'scheduler': 'slurm',
                     'access': ['-p pascal_gpu'],
-                    'environs': ['CUDA', 'builtin'],
+                    'environs': ['CUDA', 'standard'],
                     'descr': 'Nvidia pascal nodes',
                     'max_jobs': 2,
                     'launcher': 'srun',
@@ -279,7 +290,7 @@ site_configuration = {
     ],
     'environments': [
         {
-            'name': 'builtin', 'cc': 'gcc', 'cxx': 'g++', 'ftn': 'gfortran',},
+            'name': 'standard', 'cc': 'gcc', 'cxx': 'g++', 'ftn': 'gfortran',},
         {
             'name': 'foss-2021a', 'cc': 'mpicc', 'cxx': 'mpicxx',
             'ftn': 'mpif90', 'modules': ['foss/2021a'],},
@@ -330,22 +341,12 @@ site_configuration = {
                     'append': False,
                 },
             ],
-            'handlers_perflog': [
-                {
-                    'type': 'filelog',
-                    'prefix': '%(check_system)s/%(check_partition)s',
-                    'level': 'info',
-                    'format': '%(check_job_completion_time)s ' + perf_logging_format,
-                    'append': True,
-                },
-                {
-                    'type': 'syslog',
-                    'address': '/dev/log',
-                    'level': syslog_level,
-                    'format': perf_logging_format,
-                    'append': True,
-                },
-            ],
         }
     ],
+    'modes': [
+        {
+            'name': 'UAstandard',
+            'options': antwerpen_mode_options,
+        },
+    ]
 }

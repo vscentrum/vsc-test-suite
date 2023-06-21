@@ -1,5 +1,4 @@
 import reframe as rfm
-from reframe.core.decorators import run_after
 import reframe.utility.sanity as sn
 
 
@@ -7,7 +6,7 @@ import reframe.utility.sanity as sn
 class NumpyTest(rfm.RunOnlyRegressionTest):
     def __init__(self):
         self.descr = 'Test a few typical numpy operations'
-        self.valid_prog_environs = ['builtin']
+        self.valid_prog_environs = ['standard']
         self.modules = ['Python']
         self.time_limit = '20m'
 
@@ -81,7 +80,7 @@ class NumpyTest(rfm.RunOnlyRegressionTest):
     @run_after('setup')
     def set_num_cpus(self):
         self.num_cpus_per_task = 6
-        self.variables = {
+        self.env_vars = {
             'OMP_NUM_THREADS': str(self.num_cpus_per_task),
             'MKL_NUM_THREADS': str(self.num_cpus_per_task)
         }

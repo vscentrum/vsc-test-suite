@@ -8,7 +8,7 @@ class GPU_Burn_nvidia(rfm.RunOnlyRegressionTest):
     valid_systems = ["*:nvidia"]
     valid_prog_environs = ["CUDA"]
     modules = ['git']
-    variables = {'CUDAPATH': '$EBROOTCUDA'}
+    env_vars = {'CUDAPATH': '$EBROOTCUDA'}
     time_limit = '10m'
     prerun_cmds = ['git clone https://github.com/wilicc/gpu-burn.git', 'cd gpu-burn', 'make']
     executable = '--output=rfm_GPUBURN_nvidia_node-%N.out ./gpu_burn 20'

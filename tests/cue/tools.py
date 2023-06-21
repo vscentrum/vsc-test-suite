@@ -12,7 +12,7 @@ from tools_list import tools, standard_partitions_tool_test
 class VSCToolAvailabilityTest(rfm.RunOnlyRegressionTest):
     tool = parameter(tools.keys())
 
-    valid_prog_environs = ["builtin"]
+    valid_prog_environs = ["standard"]
     time_limit = '10m'
     num_tasks = 1
     num_tasks_per_node = 1
@@ -73,7 +73,7 @@ class VSCToolVersionTest(rfm.RunOnlyRegressionTest):
             targets += [x]
     tool = parameter(targets)
 
-    valid_prog_environs = ["builtin"]
+    valid_prog_environs = ["standard"]
     time_limit = '10m'
     num_tasks = 1
     num_tasks_per_node = 1

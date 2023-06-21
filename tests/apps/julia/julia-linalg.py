@@ -4,13 +4,13 @@ import reframe.utility.sanity as sn
 
 class JuliaLinalgBaseTest(rfm.RunOnlyRegressionTest):
     def __init__(self):
-        self.valid_prog_environs = ['builtin']
+        self.valid_prog_environs = ['standard']
         self.sanity_patterns = sn.assert_found(r'Julia version:*',
                                                self.stdout)
         self.modules = ['Julia']
         self.executable = 'julia'
         self.executable_opts = ['linalg.jl']
-        self.tags = {'apps', 'julia', '1nodes'}
+        self.tags = {'apps', 'julia', '1nodes', 'performance'}
         self.maintainers = ['Lewih']
         self.time_limit = '10m'
 
@@ -70,10 +70,10 @@ class JuliaLinalgTest(JuliaLinalgBaseTest):
     @run_after('setup')
     def set_var_postrun(self):
         if self.current_system.name == "genius":
-            self.variables = {"JULIA_DEPOT_PATH": "$VSC_SCRATCH/rfm_julia_$PBS_JOBID"}
+            self.env_vars = {"JULIA_DEPOT_PATH": "$VSC_SCRATCH/rfm_julia_$PBS_JOBID"}
             self.postrun_cmds = ['rm -rf $VSC_SCRATCH/rfm_julia_$PBS_JOBID']
         else:
-            self.variables = {"JULIA_DEPOT_PATH": "$VSC_SCRATCH/rfm_julia_$SLURM_JOBID"}
+            self.env_vars = {"JULIA_DEPOT_PATH": "$VSC_SCRATCH/rfm_julia_$SLURM_JOBID"}
             self.postrun_cmds = ['rm -rf $VSC_SCRATCH/rfm_julia_$SLURM_JOBID']
 
     @run_after('setup')

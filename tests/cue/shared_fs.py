@@ -13,7 +13,7 @@ class VSCSharedFSMountTest(rfm.RunOnlyRegressionTest):
     fs = parameter(shared_fs.keys())
     site = parameter(shared_fs_sites)
     valid_systems = ["*:local", "*:single-node"]
-    valid_prog_environs = ["builtin"]
+    valid_prog_environs = ["standard"]
     maintainers = ['rverschoren']
     time_limit = '10m'
     num_tasks = 1
@@ -39,7 +39,7 @@ class VSCSharedFSMode(rfm.RunOnlyRegressionTest):
     fs = parameter(shared_fs.keys())
     site = parameter(shared_fs_sites)
     valid_systems = ["*:local", "*:single-node"]
-    valid_prog_environs = ["builtin"]
+    valid_prog_environs = ["standard"]
     maintainers = ['rverschoren']
     time_limit = '10m'
     num_tasks = 1
@@ -72,7 +72,7 @@ class VSCSharedFSAccountDir(rfm.RunOnlyRegressionTest):
             targets += [x]
     fs = parameter(targets)
     valid_systems = ["*:local", "*:single-node"]
-    valid_prog_environs = ["builtin"]
+    valid_prog_environs = ["standard"]
     maintainers = ['rverschoren']
     time_limit = '10m'
     num_tasks = 1
