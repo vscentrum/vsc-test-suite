@@ -62,7 +62,7 @@ class Namd_SMP_CPUTest(NamdBaseTest):
 
         self.valid_systems = ['leibniz:single-node',
                               'vaughan:single-node']
-        self.valid_prog_environs = ['builtin']
+        self.valid_prog_environs = ['standard']
         super().__init__('cpu')
 
         self.scale_reference = {
@@ -112,7 +112,7 @@ class Namd_NotSMP_CPUTest(NamdBaseTest):
                               'genius:single-node',
                               'hydra:single-node']
 
-        self.valid_prog_environs = ['builtin']
+        self.valid_prog_environs = ['standard']
         super().__init__('cpu')
 
         self.scale_reference = {

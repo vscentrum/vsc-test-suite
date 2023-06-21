@@ -6,7 +6,7 @@ import reframe.utility.sanity as sn
 class NumpyTest(rfm.RunOnlyRegressionTest):
     def __init__(self):
         self.descr = 'Test a few typical numpy operations'
-        self.valid_prog_environs = ['builtin']
+        self.valid_prog_environs = ['standard']
         self.modules = ['Python']
         self.time_limit = '20m'
 

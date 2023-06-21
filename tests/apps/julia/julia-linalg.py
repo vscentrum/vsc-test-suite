@@ -4,7 +4,7 @@ import reframe.utility.sanity as sn
 
 class JuliaLinalgBaseTest(rfm.RunOnlyRegressionTest):
     def __init__(self):
-        self.valid_prog_environs = ['builtin']
+        self.valid_prog_environs = ['standard']
         self.sanity_patterns = sn.assert_found(r'Julia version:*',
                                                self.stdout)
         self.modules = ['Julia']

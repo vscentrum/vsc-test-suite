@@ -9,7 +9,7 @@ import reframe.utility.sanity as sn
 
 class MatlabLinalgBaseTest(rfm.RunOnlyRegressionTest):
     def __init__(self):
-        self.valid_prog_environs = ['builtin']
+        self.valid_prog_environs = ['standard']
         self.modules = ['MATLAB']
 
         self.perf_patterns = {

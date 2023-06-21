@@ -7,7 +7,7 @@ import os
 
 class GaussianBaseTest(rfm.RunOnlyRegressionTest):
     def __init__(self):
-        self.valid_prog_environs = ['builtin']
+        self.valid_prog_environs = ['standard']
         self.modules = ['Gaussian/g16_c01-avx2']
 
         self.sanity_patterns = sn.assert_found(r' Normal termination of Gaussian',
